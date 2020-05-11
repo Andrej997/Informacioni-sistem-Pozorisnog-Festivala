@@ -13,7 +13,190 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelPPT" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="ModelPPTContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PozoristeSet" EntityType="ModelPPT.Pozoriste" />
+          <EntitySet Name="PropratniDeoFestivalaSet" EntityType="ModelPPT.PropratniDeoFestivala" />
+          <EntitySet Name="FestivalSet" EntityType="ModelPPT.Festival" />
+          <EntitySet Name="NagradaSet" EntityType="ModelPPT.Nagrada" />
+          <EntitySet Name="FormaSet" EntityType="ModelPPT.Forma" />
+          <AssociationSet Name="dodeljuje" Association="ModelPPT.dodeljuje">
+            <End Role="Festival" EntitySet="FestivalSet" />
+            <End Role="Nagrada" EntitySet="NagradaSet" />
+          </AssociationSet>
+          <AssociationSet Name="ima" Association="ModelPPT.ima">
+            <End Role="Festival" EntitySet="FestivalSet" />
+            <End Role="Forma" EntitySet="FormaSet" />
+          </AssociationSet>
+          <EntitySet Name="RadnikSet" EntityType="ModelPPT.Radnik" />
+          <AssociationSet Name="radi" Association="ModelPPT.radi">
+            <End Role="Festival" EntitySet="FestivalSet" />
+            <End Role="Radnik" EntitySet="RadnikSet" />
+          </AssociationSet>
+          <AssociationSet Name="urucena" Association="ModelPPT.urucena">
+            <End Role="Nagrada" EntitySet="NagradaSet" />
+            <End Role="Glumac" EntitySet="RadnikSet" />
+          </AssociationSet>
+          <EntitySet Name="OrganizacioniOdborSet" EntityType="ModelPPT.OrganizacioniOdbor" />
+          <AssociationSet Name="sastavljen" Association="ModelPPT.sastavljen">
+            <End Role="ClanOrgOdbrora" EntitySet="RadnikSet" />
+            <End Role="OrganizacioniOdbor" EntitySet="OrganizacioniOdborSet" />
+          </AssociationSet>
+          <AssociationSet Name="odredjuje" Association="ModelPPT.odredjuje">
+            <End Role="OrganizacioniOdbor" EntitySet="OrganizacioniOdborSet" />
+            <End Role="Selektor" EntitySet="RadnikSet" />
+          </AssociationSet>
+          <EntitySet Name="PredstavaSet" EntityType="ModelPPT.Predstava" />
+          <AssociationSet Name="realizuje" Association="ModelPPT.realizuje">
+            <End Role="Predstava" EntitySet="PredstavaSet" />
+            <End Role="Reditelj" EntitySet="RadnikSet" />
+          </AssociationSet>
+          <EntitySet Name="UgovorSet" EntityType="ModelPPT.Ugovor" />
+          <EntitySet Name="SalaSet" EntityType="ModelPPT.Sala" />
         </EntityContainer>
+        <EntityType Name="Pozoriste">
+          <Key>
+            <PropertyRef Name="PozoristeId" />
+          </Key>
+          <Property Name="PozoristeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" />
+          <Property Name="BrojZaposlenih" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PropratniDeoFestivala" >
+          <Property Name="Tip" Type="ModelPPT.PropDeoFestEnum" />
+          <Property Name="VremeOdrzavanja" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EnumType Name="PropDeoFestEnum">
+          <Member Name="ObilazakGrada" Value="1" />
+          <Member Name="Koncert" Value="2" />
+          <Member Name="KnjizevnaPriredba" Value="3" />
+          <Member Name="PrezentacijaKnjiga" Value="4" />
+          <Member Name="PrezentacijaSlika" Value="5" />
+          <Member Name="PosetaMuzeju" Value="6" />
+        </EnumType>
+        <EntityType Name="Festival">
+          <Key>
+            <PropertyRef Name="FestivalId" />
+          </Key>
+          <Property Name="FestivalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Budzet" Type="Double" Nullable="false" />
+          <Property Name="Sponzor" Type="String" Nullable="false" />
+          <Property Name="BrojPozorista" Type="Int32" Nullable="false" />
+          <Property Name="Naziv" Type="String" Nullable="false" />
+          <Property Name="Tema" Type="ModelPPT.FestivalTemaEnum" Nullable="false" />
+          <Property Name="pocetakOdrzavanja" Type="DateTime" Nullable="false" />
+          <Property Name="KrajOdrzavanja" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Nagradas" Relationship="ModelPPT.dodeljuje" FromRole="Festival" ToRole="Nagrada" />
+          <NavigationProperty Name="Forma" Relationship="ModelPPT.ima" FromRole="Festival" ToRole="Forma" />
+          <NavigationProperty Name="Radniks" Relationship="ModelPPT.radi" FromRole="Festival" ToRole="Radnik" />
+        </EntityType>
+        <EntityType Name="Nagrada">
+          <Key>
+            <PropertyRef Name="NagradaId" />
+          </Key>
+          <Property Name="NagradaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Iznos" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Festivals" Relationship="ModelPPT.dodeljuje" FromRole="Nagrada" ToRole="Festival" />
+          <NavigationProperty Name="Glumacs" Relationship="ModelPPT.urucena" FromRole="Nagrada" ToRole="Glumac" />
+        </EntityType>
+        <EnumType Name="FestivalTemaEnum">
+          <Member Name="GeoPodrucje" Value="1" />
+          <Member Name="GovornoPodrucje" Value="2" />
+          <Member Name="Opste" Value="3" />
+        </EnumType>
+        <EntityType Name="Forma" >
+          <Property Name="Naziv" Type="String" Nullable="false" />
+          <Property Name="FestivalFestivalId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Festivals" Relationship="ModelPPT.ima" FromRole="Forma" ToRole="Festival" />
+        </EntityType>
+        <Association Name="dodeljuje">
+          <End Type="ModelPPT.Festival" Role="Festival" Multiplicity="*" />
+          <End Type="ModelPPT.Nagrada" Role="Nagrada" Multiplicity="*" />
+        </Association>
+        <Association Name="ima">
+          <End Type="ModelPPT.Festival" Role="Festival" Multiplicity="*" />
+          <End Type="ModelPPT.Forma" Role="Forma" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Radnik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" Nullable="false" />
+          <Property Name="Prezime" Type="String" Nullable="false" />
+          <NavigationProperty Name="Festivals" Relationship="ModelPPT.radi" FromRole="Radnik" ToRole="Festival" />
+        </EntityType>
+        <EntityType Name="Selektor" BaseType="ModelPPT.Radnik" >
+          <Property Name="BrOdgPred" Type="String" Nullable="false" />
+          <NavigationProperty Name="OrganizacioniOdbors" Relationship="ModelPPT.odredjuje" FromRole="Selektor" ToRole="OrganizacioniOdbor" />
+        </EntityType>
+        <EntityType Name="ClanOrgOdbrora" BaseType="ModelPPT.Radnik" >
+          <NavigationProperty Name="OrganizacioniOdbors" Relationship="ModelPPT.sastavljen" FromRole="ClanOrgOdbrora" ToRole="OrganizacioniOdbor" />
+        </EntityType>
+        <EntityType Name="Glumac" BaseType="ModelPPT.Radnik" >
+          <Property Name="BrPredstava" Type="String" Nullable="false" />
+          <NavigationProperty Name="Nagradas" Relationship="ModelPPT.urucena" FromRole="Glumac" ToRole="Nagrada" />
+        </EntityType>
+        <EntityType Name="Reditelj" BaseType="ModelPPT.Radnik" >
+          <Property Name="BrPredstava" Type="String" Nullable="false" />
+          <NavigationProperty Name="Predstavas" Relationship="ModelPPT.realizuje" FromRole="Reditelj" ToRole="Predstava" />
+        </EntityType>
+        <Association Name="radi">
+          <End Type="ModelPPT.Festival" Role="Festival" Multiplicity="*" />
+          <End Type="ModelPPT.Radnik" Role="Radnik" Multiplicity="*" />
+        </Association>
+        <Association Name="urucena">
+          <End Type="ModelPPT.Nagrada" Role="Nagrada" Multiplicity="*" />
+          <End Type="ModelPPT.Glumac" Role="Glumac" Multiplicity="*" />
+        </Association>
+        <EntityType Name="OrganizacioniOdbor" >
+          <NavigationProperty Name="ClanOrgOdbroras" Relationship="ModelPPT.sastavljen" FromRole="OrganizacioniOdbor" ToRole="ClanOrgOdbrora" />
+          <NavigationProperty Name="Selektor" Relationship="ModelPPT.odredjuje" FromRole="OrganizacioniOdbor" ToRole="Selektor" />
+          <Property Name="SelektorId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="sastavljen">
+          <End Type="ModelPPT.ClanOrgOdbrora" Role="ClanOrgOdbrora" Multiplicity="*" />
+          <End Type="ModelPPT.OrganizacioniOdbor" Role="OrganizacioniOdbor" Multiplicity="*" />
+        </Association>
+        <Association Name="odredjuje">
+          <End Type="ModelPPT.OrganizacioniOdbor" Role="OrganizacioniOdbor" Multiplicity="*" />
+          <End Type="ModelPPT.Selektor" Role="Selektor" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Selektor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrganizacioniOdbor">
+              <PropertyRef Name="SelektorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Predstava">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" />
+          <NavigationProperty Name="Rediteljs" Relationship="ModelPPT.realizuje" FromRole="Predstava" ToRole="Reditelj" />
+        </EntityType>
+        <Association Name="realizuje">
+          <End Type="ModelPPT.Predstava" Role="Predstava" Multiplicity="*" />
+          <End Type="ModelPPT.Reditelj" Role="Reditelj" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Ugovor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Svota" Type="Double" Nullable="false" />
+          <Property Name="NazivPozorista" Type="String" Nullable="false" />
+          <Property Name="NazivGPozorista" Type="String" Nullable="false" />
+          <Property Name="DtSkalapanja" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sala">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KapacPublike" Type="String" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

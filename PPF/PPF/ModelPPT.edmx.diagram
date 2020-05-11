@@ -4,7 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3bc0f5370b8b4a57a412c04e8ac370e7" Name="Diagram1" />
+      <Diagram DiagramId="3bc0f5370b8b4a57a412c04e8ac370e7" Name="Diagram1" >
+        <EntityTypeShape EntityType="ModelPPT.Pozoriste" Width="1.5" PointX="4.875" PointY="2.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.PropratniDeoFestivala" Width="1.5" PointX="7.125" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.Festival" Width="1.5" PointX="10" PointY="2.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.Nagrada" Width="1.5" PointX="12.75" PointY="3.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.Forma" Width="1.5" PointX="10" PointY="1.625" IsExpanded="false" />
+        <AssociationConnector Association="ModelPPT.dodeljuje" />
+        <AssociationConnector Association="ModelPPT.ima" />
+        <EntityTypeShape EntityType="ModelPPT.Radnik" Width="1.5" PointX="5.625" PointY="13.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.Selektor" Width="1.5" PointX="3.5" PointY="10.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.ClanOrgOdbrora" Width="1.5" PointX="5.625" PointY="10.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.Glumac" Width="1.5" PointX="7.5" PointY="10.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.Reditelj" Width="1.5" PointX="9.625" PointY="10.75" IsExpanded="false" />
+        <InheritanceConnector EntityType="ModelPPT.ClanOrgOdbrora" />
+        <InheritanceConnector EntityType="ModelPPT.Selektor" />
+        <InheritanceConnector EntityType="ModelPPT.Glumac" />
+        <InheritanceConnector EntityType="ModelPPT.Reditelj" />
+        <AssociationConnector Association="ModelPPT.radi" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="ModelPPT.urucena" />
+        <EntityTypeShape EntityType="ModelPPT.OrganizacioniOdbor" Width="1.5" PointX="5.625" PointY="7.5" IsExpanded="false" />
+        <AssociationConnector Association="ModelPPT.sastavljen" />
+        <AssociationConnector Association="ModelPPT.odredjuje" />
+        <EntityTypeShape EntityType="ModelPPT.Predstava" Width="1.5" PointX="9.375" PointY="8.5" IsExpanded="false" />
+        <AssociationConnector Association="ModelPPT.realizuje" />
+        <EntityTypeShape EntityType="ModelPPT.Ugovor" Width="1.5" PointX="3.875" PointY="3.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="ModelPPT.Sala" Width="1.5" PointX="0.5" PointY="2.5" IsExpanded="false" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
