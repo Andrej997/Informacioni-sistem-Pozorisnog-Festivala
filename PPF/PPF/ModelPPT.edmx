@@ -51,6 +51,75 @@
           </AssociationSet>
           <EntitySet Name="UgovorSet" EntityType="ModelPPT.Ugovor" />
           <EntitySet Name="SalaSet" EntityType="ModelPPT.Sala" />
+          <EntitySet Name="OrganizatorSet" EntityType="ModelPPT.Organizator" />
+          <AssociationSet Name="PropratniDeoFestivalaOrganizator" Association="ModelPPT.PropratniDeoFestivalaOrganizator">
+            <End Role="PropratniDeoFestivala" EntitySet="PropratniDeoFestivalaSet" />
+            <End Role="Organizator" EntitySet="OrganizatorSet" />
+          </AssociationSet>
+          <AssociationSet Name="organizuje" Association="ModelPPT.PozoristeOrganizator">
+            <End Role="Pozoriste" EntitySet="PozoristeSet" />
+            <End Role="Organizator" EntitySet="OrganizatorSet" />
+          </AssociationSet>
+          <AssociationSet Name="organizuje1" Association="ModelPPT.organizuje">
+            <End Role="Organizator" EntitySet="OrganizatorSet" />
+            <End Role="Festival" EntitySet="FestivalSet" />
+          </AssociationSet>
+          <AssociationSet Name="poseduje" Association="ModelPPT.poseduje">
+            <End Role="Sala" EntitySet="SalaSet" />
+            <End Role="Organizator" EntitySet="OrganizatorSet" />
+          </AssociationSet>
+          <AssociationSet Name="postavlja" Association="ModelPPT.postavlja">
+            <End Role="Organizator" EntitySet="OrganizatorSet" />
+            <End Role="OrganizacioniOdbor" EntitySet="OrganizacioniOdborSet" />
+          </AssociationSet>
+          <EntitySet Name="IzabranaSet" EntityType="ModelPPT.Izabrana" />
+          <EntitySet Name="SklopljenSet" EntityType="ModelPPT.Sklopljen" />
+          <AssociationSet Name="bira" Association="ModelPPT.bira">
+            <End Role="Izabrana" EntitySet="IzabranaSet" />
+            <End Role="Pozoriste" EntitySet="PozoristeSet" />
+          </AssociationSet>
+          <AssociationSet Name="bira1" Association="ModelPPT.bira1">
+            <End Role="Izabrana" EntitySet="IzabranaSet" />
+            <End Role="OrganizacioniOdbor" EntitySet="OrganizacioniOdborSet" />
+          </AssociationSet>
+          <AssociationSet Name="UgovorSklopljen" Association="ModelPPT.UgovorSklopljen">
+            <End Role="Ugovor" EntitySet="UgovorSet" />
+            <End Role="Sklopljen" EntitySet="SklopljenSet" />
+          </AssociationSet>
+          <AssociationSet Name="SklopljenIzabrana" Association="ModelPPT.SklopljenIzabrana">
+            <End Role="Sklopljen" EntitySet="SklopljenSet" />
+            <End Role="Izabrana" EntitySet="IzabranaSet" />
+          </AssociationSet>
+          <EntitySet Name="UcesnikSet" EntityType="ModelPPT.Ucesnik" />
+          <AssociationSet Name="UcesnikUcesnik" Association="ModelPPT.UcesnikUcesnik">
+            <End Role="Ucesnik" EntitySet="UcesnikSet" />
+            <End Role="Ucesnik1" EntitySet="UcesnikSet" />
+          </AssociationSet>
+          <AssociationSet Name="dobija" Association="ModelPPT.dobija">
+            <End Role="Ucesnik" EntitySet="UcesnikSet" />
+            <End Role="Nagrada" EntitySet="NagradaSet" />
+          </AssociationSet>
+          <AssociationSet Name="SklopljenUcesnik" Association="ModelPPT.SklopljenUcesnik">
+            <End Role="Sklopljen" EntitySet="SklopljenSet" />
+            <End Role="Ucesnik" EntitySet="UcesnikSet" />
+          </AssociationSet>
+          <AssociationSet Name="UcesnikFestival" Association="ModelPPT.UcesnikFestival">
+            <End Role="Ucesnik" EntitySet="UcesnikSet" />
+            <End Role="Festival" EntitySet="FestivalSet" />
+          </AssociationSet>
+          <EntitySet Name="IzvodjenaSet" EntityType="ModelPPT.Izvodjena" />
+          <AssociationSet Name="IzvodjenaPredstava" Association="ModelPPT.IzvodjenaPredstava">
+            <End Role="Izvodjena" EntitySet="IzvodjenaSet" />
+            <End Role="Predstava" EntitySet="PredstavaSet" />
+          </AssociationSet>
+          <AssociationSet Name="UcesnikIzvodjena" Association="ModelPPT.UcesnikIzvodjena">
+            <End Role="Ucesnik" EntitySet="UcesnikSet" />
+            <End Role="Izvodjena" EntitySet="IzvodjenaSet" />
+          </AssociationSet>
+          <AssociationSet Name="igraSe" Association="ModelPPT.igraSe">
+            <End Role="Sala" EntitySet="SalaSet" />
+            <End Role="Izvodjena" EntitySet="IzvodjenaSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Pozoriste">
           <Key>
@@ -59,10 +128,13 @@
           <Property Name="PozoristeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Naziv" Type="String" Nullable="false" />
           <Property Name="BrojZaposlenih" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Organizators" Relationship="ModelPPT.PozoristeOrganizator" FromRole="Pozoriste" ToRole="Organizator" />
+          <NavigationProperty Name="Izabranas" Relationship="ModelPPT.bira" FromRole="Pozoriste" ToRole="Izabrana" />
         </EntityType>
         <EntityType Name="PropratniDeoFestivala" >
           <Property Name="Tip" Type="ModelPPT.PropDeoFestEnum" />
           <Property Name="VremeOdrzavanja" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Organizators" Relationship="ModelPPT.PropratniDeoFestivalaOrganizator" FromRole="PropratniDeoFestivala" ToRole="Organizator" />
         </EntityType>
         <EnumType Name="PropDeoFestEnum">
           <Member Name="ObilazakGrada" Value="1" />
@@ -87,6 +159,8 @@
           <NavigationProperty Name="Nagradas" Relationship="ModelPPT.dodeljuje" FromRole="Festival" ToRole="Nagrada" />
           <NavigationProperty Name="Forma" Relationship="ModelPPT.ima" FromRole="Festival" ToRole="Forma" />
           <NavigationProperty Name="Radniks" Relationship="ModelPPT.radi" FromRole="Festival" ToRole="Radnik" />
+          <NavigationProperty Name="Organizators" Relationship="ModelPPT.organizuje" FromRole="Festival" ToRole="Organizator" />
+          <NavigationProperty Name="Ucesniks" Relationship="ModelPPT.UcesnikFestival" FromRole="Festival" ToRole="Ucesnik" />
         </EntityType>
         <EntityType Name="Nagrada">
           <Key>
@@ -96,6 +170,7 @@
           <Property Name="Iznos" Type="Double" Nullable="false" />
           <NavigationProperty Name="Festivals" Relationship="ModelPPT.dodeljuje" FromRole="Nagrada" ToRole="Festival" />
           <NavigationProperty Name="Glumacs" Relationship="ModelPPT.urucena" FromRole="Nagrada" ToRole="Glumac" />
+          <NavigationProperty Name="Ucesnik" Relationship="ModelPPT.dobija" FromRole="Nagrada" ToRole="Ucesnik" />
         </EntityType>
         <EnumType Name="FestivalTemaEnum">
           <Member Name="GeoPodrucje" Value="1" />
@@ -151,6 +226,8 @@
           <NavigationProperty Name="ClanOrgOdbroras" Relationship="ModelPPT.sastavljen" FromRole="OrganizacioniOdbor" ToRole="ClanOrgOdbrora" />
           <NavigationProperty Name="Selektor" Relationship="ModelPPT.odredjuje" FromRole="OrganizacioniOdbor" ToRole="Selektor" />
           <Property Name="SelektorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Organizators" Relationship="ModelPPT.postavlja" FromRole="OrganizacioniOdbor" ToRole="Organizator" />
+          <NavigationProperty Name="Izabranas" Relationship="ModelPPT.bira1" FromRole="OrganizacioniOdbor" ToRole="Izabrana" />
         </EntityType>
         <Association Name="sastavljen">
           <End Type="ModelPPT.ClanOrgOdbrora" Role="ClanOrgOdbrora" Multiplicity="*" />
@@ -175,6 +252,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Naziv" Type="String" Nullable="false" />
           <NavigationProperty Name="Rediteljs" Relationship="ModelPPT.realizuje" FromRole="Predstava" ToRole="Reditelj" />
+          <NavigationProperty Name="Izvodjenas" Relationship="ModelPPT.IzvodjenaPredstava" FromRole="Predstava" ToRole="Izvodjena" />
         </EntityType>
         <Association Name="realizuje">
           <End Type="ModelPPT.Predstava" Role="Predstava" Multiplicity="*" />
@@ -189,6 +267,7 @@
           <Property Name="NazivPozorista" Type="String" Nullable="false" />
           <Property Name="NazivGPozorista" Type="String" Nullable="false" />
           <Property Name="DtSkalapanja" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Sklopljens" Relationship="ModelPPT.UgovorSklopljen" FromRole="Ugovor" ToRole="Sklopljen" />
         </EntityType>
         <EntityType Name="Sala">
           <Key>
@@ -196,7 +275,141 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KapacPublike" Type="String" Nullable="false" />
+          <NavigationProperty Name="Organizator" Relationship="ModelPPT.poseduje" FromRole="Sala" ToRole="Organizator" />
+          <NavigationProperty Name="Izvodjenas" Relationship="ModelPPT.igraSe" FromRole="Sala" ToRole="Izvodjena" />
         </EntityType>
+        <EntityType Name="Organizator" >
+          <NavigationProperty Name="PropratniDeoFestivalas" Relationship="ModelPPT.PropratniDeoFestivalaOrganizator" FromRole="Organizator" ToRole="PropratniDeoFestivala" />
+          <NavigationProperty Name="Pozoriste" Relationship="ModelPPT.PozoristeOrganizator" FromRole="Organizator" ToRole="Pozoriste" />
+          <Property Name="PozoristePozoristeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Festivals" Relationship="ModelPPT.organizuje" FromRole="Organizator" ToRole="Festival" />
+          <NavigationProperty Name="Salas" Relationship="ModelPPT.poseduje" FromRole="Organizator" ToRole="Sala" />
+          <NavigationProperty Name="OrganizacioniOdbor" Relationship="ModelPPT.postavlja" FromRole="Organizator" ToRole="OrganizacioniOdbor" />
+        </EntityType>
+        <Association Name="PropratniDeoFestivalaOrganizator">
+          <End Type="ModelPPT.PropratniDeoFestivala" Role="PropratniDeoFestivala" Multiplicity="*" />
+          <End Type="ModelPPT.Organizator" Role="Organizator" Multiplicity="*" />
+        </Association>
+        <Association Name="PozoristeOrganizator">
+          <End Type="ModelPPT.Pozoriste" Role="Pozoriste" Multiplicity="1" />
+          <End Type="ModelPPT.Organizator" Role="Organizator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pozoriste">
+              <PropertyRef Name="PozoristeId" />
+            </Principal>
+            <Dependent Role="Organizator">
+              <PropertyRef Name="PozoristePozoristeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="organizuje">
+          <End Type="ModelPPT.Organizator" Role="Organizator" Multiplicity="*" />
+          <End Type="ModelPPT.Festival" Role="Festival" Multiplicity="*" />
+        </Association>
+        <Association Name="poseduje">
+          <End Type="ModelPPT.Sala" Role="Sala" Multiplicity="*" />
+          <End Type="ModelPPT.Organizator" Role="Organizator" Multiplicity="1" />
+        </Association>
+        <Association Name="postavlja">
+          <End Type="ModelPPT.Organizator" Role="Organizator" Multiplicity="*" />
+          <End Type="ModelPPT.OrganizacioniOdbor" Role="OrganizacioniOdbor" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Izabrana" >
+          <NavigationProperty Name="Pozoristes" Relationship="ModelPPT.bira" FromRole="Izabrana" ToRole="Pozoriste" />
+          <NavigationProperty Name="OrganizacioniOdbor" Relationship="ModelPPT.bira1" FromRole="Izabrana" ToRole="OrganizacioniOdbor" />
+          <NavigationProperty Name="Sklopljens" Relationship="ModelPPT.SklopljenIzabrana" FromRole="Izabrana" ToRole="Sklopljen" />
+        </EntityType>
+        <EntityType Name="Sklopljen" >
+          <NavigationProperty Name="Ugovor" Relationship="ModelPPT.UgovorSklopljen" FromRole="Sklopljen" ToRole="Ugovor" />
+          <NavigationProperty Name="Izabrana" Relationship="ModelPPT.SklopljenIzabrana" FromRole="Sklopljen" ToRole="Izabrana" />
+          <NavigationProperty Name="Ucesniks" Relationship="ModelPPT.SklopljenUcesnik" FromRole="Sklopljen" ToRole="Ucesnik" />
+        </EntityType>
+        <Association Name="bira">
+          <End Type="ModelPPT.Izabrana" Role="Izabrana" Multiplicity="*" />
+          <End Type="ModelPPT.Pozoriste" Role="Pozoriste" Multiplicity="*" />
+        </Association>
+        <Association Name="bira1">
+          <End Type="ModelPPT.Izabrana" Role="Izabrana" Multiplicity="*" />
+          <End Type="ModelPPT.OrganizacioniOdbor" Role="OrganizacioniOdbor" Multiplicity="0..1" />
+        </Association>
+        <Association Name="UgovorSklopljen">
+          <End Type="ModelPPT.Ugovor" Role="Ugovor" Multiplicity="0..1" />
+          <End Type="ModelPPT.Sklopljen" Role="Sklopljen" Multiplicity="*" />
+        </Association>
+        <Association Name="SklopljenIzabrana">
+          <End Type="ModelPPT.Sklopljen" Role="Sklopljen" Multiplicity="*" />
+          <End Type="ModelPPT.Izabrana" Role="Izabrana" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Ucesnik" >
+          <NavigationProperty Name="Ucesniks" Relationship="ModelPPT.UcesnikUcesnik" FromRole="Ucesnik" ToRole="Ucesnik1" />
+          <NavigationProperty Name="Ucesnik1" Relationship="ModelPPT.UcesnikUcesnik" FromRole="Ucesnik1" ToRole="Ucesnik" />
+          <NavigationProperty Name="Nagrada" Relationship="ModelPPT.dobija" FromRole="Ucesnik" ToRole="Nagrada" />
+          <NavigationProperty Name="Sklopljens" Relationship="ModelPPT.SklopljenUcesnik" FromRole="Ucesnik" ToRole="Sklopljen" />
+          <NavigationProperty Name="Festival" Relationship="ModelPPT.UcesnikFestival" FromRole="Ucesnik" ToRole="Festival" />
+          <Property Name="FestivalFestivalId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Izvodjenas" Relationship="ModelPPT.UcesnikIzvodjena" FromRole="Ucesnik" ToRole="Izvodjena" />
+        </EntityType>
+        <Association Name="UcesnikUcesnik">
+          <End Type="ModelPPT.Ucesnik" Role="Ucesnik" Multiplicity="1" />
+          <End Type="ModelPPT.Ucesnik" Role="Ucesnik1" Multiplicity="*" />
+        </Association>
+        <Association Name="dobija">
+          <End Type="ModelPPT.Ucesnik" Role="Ucesnik" Multiplicity="1" />
+          <End Type="ModelPPT.Nagrada" Role="Nagrada" Multiplicity="0..1" />
+        </Association>
+        <Association Name="SklopljenUcesnik">
+          <End Type="ModelPPT.Sklopljen" Role="Sklopljen" Multiplicity="*" />
+          <End Type="ModelPPT.Ucesnik" Role="Ucesnik" Multiplicity="*" />
+        </Association>
+        <Association Name="UcesnikFestival">
+          <End Type="ModelPPT.Ucesnik" Role="Ucesnik" Multiplicity="*" />
+          <End Type="ModelPPT.Festival" Role="Festival" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Festival">
+              <PropertyRef Name="FestivalId" />
+            </Principal>
+            <Dependent Role="Ucesnik">
+              <PropertyRef Name="FestivalFestivalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Izvodjena" >
+          <Property Name="BrGledalaca" Type="Int32" Nullable="false" />
+          <Property Name="VrIzvodjenja" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Predstava" Relationship="ModelPPT.IzvodjenaPredstava" FromRole="Izvodjena" ToRole="Predstava" />
+          <Property Name="PredstavaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ucesnik" Relationship="ModelPPT.UcesnikIzvodjena" FromRole="Izvodjena" ToRole="Ucesnik" />
+          <NavigationProperty Name="Sala" Relationship="ModelPPT.igraSe" FromRole="Izvodjena" ToRole="Sala" />
+          <Property Name="SalaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="IzvodjenaPredstava">
+          <End Type="ModelPPT.Izvodjena" Role="Izvodjena" Multiplicity="*" />
+          <End Type="ModelPPT.Predstava" Role="Predstava" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Predstava">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Izvodjena">
+              <PropertyRef Name="PredstavaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UcesnikIzvodjena">
+          <End Type="ModelPPT.Ucesnik" Role="Ucesnik" Multiplicity="1" />
+          <End Type="ModelPPT.Izvodjena" Role="Izvodjena" Multiplicity="*" />
+        </Association>
+        <Association Name="igraSe">
+          <End Type="ModelPPT.Sala" Role="Sala" Multiplicity="1" />
+          <End Type="ModelPPT.Izvodjena" Role="Izvodjena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Izvodjena">
+              <PropertyRef Name="SalaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
