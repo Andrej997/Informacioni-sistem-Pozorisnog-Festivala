@@ -5,79 +5,79 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3bc0f5370b8b4a57a412c04e8ac370e7" Name="Diagram1" ZoomLevel="89" >
-        <EntityTypeShape EntityType="ModelPPT.Pozoriste" Width="1.5" PointX="6.875" PointY="2.125" IsExpanded="true" FillColor="LightSkyBlue" />
-        <EntityTypeShape EntityType="ModelPPT.Festival" Width="1.5" PointX="22.125" PointY="1.75" IsExpanded="true" FillColor="LightSkyBlue" />
+        <EntityTypeShape EntityType="ModelPPT.Pozoriste" Width="1.875" PointX="14" PointY="2.875" IsExpanded="true" FillColor="LightSkyBlue" />
+        <EntityTypeShape EntityType="ModelPPT.Festival" Width="2.25" PointX="22.125" PointY="1.75" IsExpanded="true" FillColor="LightSkyBlue" />
         <EntityTypeShape EntityType="ModelPPT.Nagrada" Width="1.5" PointX="26.75" PointY="4.25" IsExpanded="true" FillColor="LightSkyBlue" />
-        <AssociationConnector Association="ModelPPT.dodeljuje" />
         <EntityTypeShape EntityType="ModelPPT.Radnik" Width="1.5" PointX="14.375" PointY="18.375" IsExpanded="true" FillColor="LightSkyBlue" />
         <EntityTypeShape EntityType="ModelPPT.Selektor" Width="1.5" PointX="8.25" PointY="14.625" IsExpanded="true" FillColor="LightSkyBlue" />
         <EntityTypeShape EntityType="ModelPPT.ClanOrgOdbrora" Width="1.5" PointX="12.25" PointY="14.625" IsExpanded="true" FillColor="LightSkyBlue" />
         <EntityTypeShape EntityType="ModelPPT.Glumac" Width="1.5" PointX="17.25" PointY="14.625" IsExpanded="true" FillColor="LightSkyBlue" />
-        <EntityTypeShape EntityType="ModelPPT.Reditelj" Width="1.5" PointX="21.625" PointY="13.875" IsExpanded="true" FillColor="LightSkyBlue" />
+        <EntityTypeShape EntityType="ModelPPT.Reditelj" Width="1.5" PointX="21.625" PointY="14.625" IsExpanded="true" FillColor="LightSkyBlue" />
         <InheritanceConnector EntityType="ModelPPT.ClanOrgOdbrora" ManuallyRouted="true" >
-          <ConnectorPoint PointX="15.119520457052502" PointY="18.375" />
+          <ConnectorPoint PointX="15.119520457052502" PointY="18.374999999999996" />
           <ConnectorPoint PointX="15.119520457052502" PointY="16.306554183373077" />
           <ConnectorPoint PointX="13" PointY="16.306554183373077" />
-          <ConnectorPoint PointX="13" PointY="15.856080729166663" />
+          <ConnectorPoint PointX="13" PointY="15.856080729166667" />
         </InheritanceConnector>
         <InheritanceConnector EntityType="ModelPPT.Selektor" ManuallyRouted="true" >
-          <ConnectorPoint PointX="15.125" PointY="18.375" />
+          <ConnectorPoint PointX="15.125" PointY="18.374999999999996" />
           <ConnectorPoint PointX="15.125" PointY="16.296517484085985" />
           <ConnectorPoint PointX="9" PointY="16.296517484085985" />
           <ConnectorPoint PointX="9" PointY="16.028382161458332" />
         </InheritanceConnector>
         <InheritanceConnector EntityType="ModelPPT.Glumac" ManuallyRouted="true" >
-          <ConnectorPoint PointX="15.126557941933825" PointY="18.375" />
+          <ConnectorPoint PointX="15.126557941933825" PointY="18.374999999999996" />
           <ConnectorPoint PointX="15.126557941933825" PointY="16.296517484085985" />
           <ConnectorPoint PointX="18" PointY="16.296517484085985" />
           <ConnectorPoint PointX="18" PointY="16.028382161458332" />
         </InheritanceConnector>
         <InheritanceConnector EntityType="ModelPPT.Reditelj" ManuallyRouted="true" >
-          <ConnectorPoint PointX="15.133921478651097" PointY="18.375" />
-          <ConnectorPoint PointX="15.133921478651097" PointY="16.3126559210022" />
-          <ConnectorPoint PointX="22.375" PointY="16.3126559210022" />
-          <ConnectorPoint PointX="22.375" PointY="15.278382161458332" />
+          <ConnectorPoint PointX="15.133921478651097" PointY="18.374999999999996" />
+          <ConnectorPoint PointX="15.133921478651097" PointY="16.292774686389642" />
+          <ConnectorPoint PointX="22.375" PointY="16.292774686389642" />
+          <ConnectorPoint PointX="22.375" PointY="16.028382161458332" />
         </InheritanceConnector>
-        <AssociationConnector Association="ModelPPT.radi" ManuallyRouted="false" >
-        </AssociationConnector>
-        <AssociationConnector Association="ModelPPT.urucena" />
-        <EntityTypeShape EntityType="ModelPPT.Predstava" Width="1.5" PointX="20.375" PointY="11.125" IsExpanded="true" FillColor="LightSkyBlue" />
-        <AssociationConnector Association="ModelPPT.realizuje" />
-        <EntityTypeShape EntityType="ModelPPT.Ugovor" Width="1.5" PointX="3.125" PointY="3.375" IsExpanded="true" FillColor="LightSkyBlue" />
-        <EntityTypeShape EntityType="ModelPPT.Sala" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" FillColor="LightSkyBlue" />
-        <EntityTypeShape EntityType="ModelPPT.Organizator" Width="1.625" PointX="15.25" PointY="2.125" IsExpanded="true" />
-        <AssociationConnector Association="ModelPPT.PozoristeOrganizator" />
+        <EntityTypeShape EntityType="ModelPPT.Predstava" Width="1.5" PointX="21.875" PointY="11.25" IsExpanded="true" FillColor="LightSkyBlue" />
+        <EntityTypeShape EntityType="ModelPPT.Ugovor" Width="1.5" PointX="10.625" PointY="4.5" IsExpanded="true" FillColor="LightSkyBlue" />
+        <EntityTypeShape EntityType="ModelPPT.Sala" Width="2.25" PointX="6.625" PointY="0.875" IsExpanded="true" FillColor="LightSkyBlue" />
+        <EntityTypeShape EntityType="ModelPPT.Ucesnik" PointX="19.5" PointY="7.125" Width="2.5" IsExpanded="true" FillColor="Chocolate" />
+        <EntityTypeShape EntityType="ModelPPT.Izvodjena" Width="1.5" PointX="17" PointY="10.25" IsExpanded="true" FillColor="Chocolate" />
+        <EntityTypeShape EntityType="ModelPPT.OrgOdbor" Width="1.5" PointX="13.875" PointY="8.375" IsExpanded="true" FillColor="LightSkyBlue" />
+        <EntityTypeShape EntityType="ModelPPT.PropDeoFest" Width="1.5" PointX="25.125" PointY="0.5" IsExpanded="true" FillColor="LightSkyBlue" />
+        <EntityTypeShape EntityType="ModelPPT.Forma" Width="1.5" PointX="29.25" PointY="0.5" IsExpanded="true" FillColor="LightSkyBlue" />
         <AssociationConnector Association="ModelPPT.organizuje" />
+        <AssociationConnector Association="ModelPPT.priredi" />
+        <AssociationConnector Association="ModelPPT.odredjuje" />
         <AssociationConnector Association="ModelPPT.poseduje" />
-        <EntityTypeShape EntityType="ModelPPT.Izabrana" Width="1.5" PointX="7" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelPPT.Sklopljen" Width="1.5" PointX="1.75" PointY="8.5" IsExpanded="true" />
-        <AssociationConnector Association="ModelPPT.bira" />
-        <AssociationConnector Association="ModelPPT.UgovorSklopljen" />
-        <AssociationConnector Association="ModelPPT.SklopljenIzabrana" />
-        <EntityTypeShape EntityType="ModelPPT.Ucesnik" PointX="16.75" PointY="7" Width="1.5" IsExpanded="true" />
-        <AssociationConnector Association="ModelPPT.dobija" />
-        <AssociationConnector Association="ModelPPT.SklopljenUcesnik" />
-        <AssociationConnector Association="ModelPPT.UcesnikFestival" />
-        <EntityTypeShape EntityType="ModelPPT.Izvodjena" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
-        <AssociationConnector Association="ModelPPT.IzvodjenaPredstava" />
-        <AssociationConnector Association="ModelPPT.UcesnikIzvodjena" />
-        <AssociationConnector Association="ModelPPT.igraSe" />
-        <EntityTypeShape EntityType="ModelPPT.Ucesnik_g" Width="1.5" PointX="14" PointY="6.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="ModelPPT.Izabrana_g" Width="1.5" PointX="5.375" PointY="6.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="ModelPPT.Sklopljen_g" Width="1.5" PointX="2.875" PointY="10.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="ModelPPT.Organizator_g" Width="1.5" PointX="17" PointY="2.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="ModelPPT.Izvodjena_g" Width="1.5" PointX="14.75" PointY="10.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="ModelPPT.OrgOdbor" Width="1.5" PointX="8.125" PointY="10.125" IsExpanded="true" FillColor="LightSkyBlue" />
-        <EntityTypeShape EntityType="ModelPPT.PropDeoFest" Width="1.5" PointX="18.375" PointY="0.5" IsExpanded="true" FillColor="LightSkyBlue" />
-        <EntityTypeShape EntityType="ModelPPT.Forma" Width="1.5" PointX="24.875" PointY="0.5" IsExpanded="true" FillColor="LightSkyBlue" />
-        <AssociationConnector Association="ModelPPT.Ucesnik_gUcesnik_g" />
-        <AssociationConnector Association="ModelPPT.proglasavaZaNajbolju" />
-        <AssociationConnector Association="ModelPPT.PropDeoFestOrganizator" />
         <AssociationConnector Association="ModelPPT.FormaFestival" />
-        <AssociationConnector Association="ModelPPT.OrganizatorOrgOdbor" />
-        <AssociationConnector Association="ModelPPT.IzabranaOrgOdbor" />
-        <AssociationConnector Association="ModelPPT.OrgOdborClanOrgOdbrora" />
+        <AssociationConnector Association="ModelPPT.postavlja" ManuallyRouted="true" >
+          <ConnectorPoint PointX="15.240484328592677" PointY="8.375" />
+          <ConnectorPoint PointX="15.240484328592677" PointY="6.64794906314555" />
+          <ConnectorPoint PointX="15.572916666666666" PointY="6.6479490631455489" />
+          <ConnectorPoint PointX="15.739583333333334" PointY="6.64794906314555" />
+          <ConnectorPoint PointX="20.02125" PointY="6.64794906314555" />
+          <ConnectorPoint PointX="20.02125" PointY="5.8173198771511458" />
+          <ConnectorPoint PointX="22.125" PointY="5.8173198771511458" />
+        </AssociationConnector>
+        <AssociationConnector Association="ModelPPT.sastavljen" />
         <AssociationConnector Association="ModelPPT.OrgOdborSelektor" />
+        <AssociationConnector Association="ModelPPT.bira" />
+        <AssociationConnector Association="ModelPPT.sklapaju" />
+        <AssociationConnector Association="ModelPPT.glumi" />
+        <AssociationConnector Association="ModelPPT.IzvodjenaPredstava" />
+        <AssociationConnector Association="ModelPPT.proglasavaZaNajbolju" />
+        <AssociationConnector Association="ModelPPT.IzvodjenaUcesnik" />
+        <AssociationConnector Association="ModelPPT.UcesnikFestival" />
+        <AssociationConnector Association="ModelPPT.dobija" />
+        <AssociationConnector Association="ModelPPT.realizuje" />
+        <AssociationConnector Association="ModelPPT.radi" ManuallyRouted="true" >
+          <ConnectorPoint PointX="15.875" PointY="19.077404868957807" />
+          <ConnectorPoint PointX="29.201895668831767" PointY="19.077404868957807" />
+          <ConnectorPoint PointX="29.201895668831767" PointY="3.7468422636140266" />
+          <ConnectorPoint PointX="24.375" PointY="3.7468422636140266" />
+        </AssociationConnector>
+        <AssociationConnector Association="ModelPPT.IzvodjenaSala" />
+        <AssociationConnector Association="ModelPPT.ucestvujeSaSklopljenimUgovorom" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
