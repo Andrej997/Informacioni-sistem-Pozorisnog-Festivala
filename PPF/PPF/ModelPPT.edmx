@@ -33,7 +33,7 @@
             <End EntitySet="PropDeoFestSet" Role="PropDeoFest" />
             <End EntitySet="FestivalSet" Role="Festival" />
           </AssociationSet>
-          <AssociationSet Name="odredjuje" Association="ModelPPT.odredjuje">
+          <AssociationSet Name="dodeljuje" Association="ModelPPT.odredjuje">
             <End Role="Nagrada" EntitySet="NagradaSet" />
             <End Role="Festival" EntitySet="FestivalSet" />
           </AssociationSet>
@@ -53,7 +53,7 @@
             <End Role="OrgOdbor" EntitySet="OrgOdborSet" />
             <End Role="ClanOrgOdbrora" EntitySet="RadnikSet" />
           </AssociationSet>
-          <AssociationSet Name="OrgOdborSelektor" Association="ModelPPT.OrgOdborSelektor">
+          <AssociationSet Name="odredjuje" Association="ModelPPT.OrgOdborSelektor">
             <End Role="OrgOdbor" EntitySet="OrgOdborSet" />
             <End Role="Selektor" EntitySet="RadnikSet" />
           </AssociationSet>
@@ -97,13 +97,17 @@
             <End Role="Radnik" EntitySet="RadnikSet" />
             <End Role="Festival" EntitySet="FestivalSet" />
           </AssociationSet>
-          <AssociationSet Name="IzvodjenaSala" Association="ModelPPT.IzvodjenaSala">
+          <AssociationSet Name="igraSe" Association="ModelPPT.IzvodjenaSala">
             <End Role="Izvodjena" EntitySet="IzvodjenaSet" />
             <End Role="Sala" EntitySet="SalaSet" />
           </AssociationSet>
           <AssociationSet Name="ucestvujeSaSklopljenimUgovorom" Association="ModelPPT.ucestvujeSaSklopljenimUgovorom">
             <End Role="Pozoriste" EntitySet="PozoristeSet" />
             <End Role="Ucesnik" EntitySet="UcesnikSet" />
+          </AssociationSet>
+          <AssociationSet Name="urucena" Association="ModelPPT.urucena">
+            <End Role="Glumac" EntitySet="RadnikSet" />
+            <End Role="Nagrada" EntitySet="NagradaSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Pozoriste">
@@ -143,7 +147,7 @@
           <Property Name="BrojPozorista" Type="Int32" Nullable="false" />
           <Property Name="Naziv" Type="String" Nullable="false" />
           <Property Name="Tema" Type="ModelPPT.FestivalTemaEnum" Nullable="false" />
-          <Property Name="pocetakOdrzavanja" Type="DateTime" Nullable="false" />
+          <Property Name="PocetakOdrzavanja" Type="DateTime" Nullable="false" />
           <Property Name="KrajOdrzavanja" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Pozoriste" Relationship="ModelPPT.organizuje" FromRole="Festival" ToRole="Pozoriste" />
           <Property Name="PozoristePozoristeId" Type="Int32" Nullable="false" />
@@ -165,6 +169,7 @@
           <Property Name="Iznos" Type="Double" Nullable="false" />
           <NavigationProperty Name="Festivals" Relationship="ModelPPT.odredjuje" FromRole="Nagrada" ToRole="Festival" />
           <NavigationProperty Name="Ucesnik" Relationship="ModelPPT.dobija" FromRole="Nagrada" ToRole="Ucesnik" />
+          <NavigationProperty Name="Glumacs" Relationship="ModelPPT.urucena" FromRole="Nagrada" ToRole="Glumac" />
         </EntityType>
         <EnumType Name="FestivalTemaEnum">
           <Member Name="GeoPodrucje" Value="1" />
@@ -190,6 +195,7 @@
         <EntityType Name="Glumac" BaseType="ModelPPT.Radnik" >
           <Property Name="BrPredstava" Type="String" Nullable="false" />
           <NavigationProperty Name="Izvodjenas" Relationship="ModelPPT.glumi" FromRole="Glumac" ToRole="Izvodjena" />
+          <NavigationProperty Name="Nagradas" Relationship="ModelPPT.urucena" FromRole="Glumac" ToRole="Nagrada" />
         </EntityType>
         <EntityType Name="Reditelj" BaseType="ModelPPT.Radnik" >
           <Property Name="BrPredstava" Type="String" Nullable="false" />
@@ -458,6 +464,10 @@
         <Association Name="ucestvujeSaSklopljenimUgovorom">
           <End Type="ModelPPT.Pozoriste" Role="Pozoriste" Multiplicity="*" />
           <End Type="ModelPPT.Ucesnik" Role="Ucesnik" Multiplicity="*" />
+        </Association>
+        <Association Name="urucena">
+          <End Type="ModelPPT.Glumac" Role="Glumac" Multiplicity="*" />
+          <End Type="ModelPPT.Nagrada" Role="Nagrada" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
