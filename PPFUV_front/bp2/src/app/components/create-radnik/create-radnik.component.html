@@ -1,0 +1,61 @@
+<div class="container">
+    <h3>Create radnik</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-group">
+            <label for="ime">Ime</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="text" id="ime" #ime
+                    formControlName="ime" class="form-control" placeholder="ime">
+            </div>
+            <div *ngIf="f.ime.touched && f.ime.invalid" class="alert alert-danger">
+                <div *ngIf="f.ime.errors.required">Ime is required.</div>
+                <div *ngIf="f.ime.errors.maxlength">Length of ime must less than 30 character.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="prezime">Prezime</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="text" id="prezime" #prezime
+                    formControlName="prezime" class="form-control" placeholder="prezime">
+            </div>
+            <div *ngIf="f.prezime.touched && f.prezime.invalid" class="alert alert-danger">
+                <div *ngIf="f.prezime.errors.required">Prezime is required.</div>
+                <div *ngIf="f.prezime.errors.maxlength">Length of prezime must less than 30 character.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="tr">Tip radnika</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="tr" #tr formControlName="tr" class="form-control" (change)="onChange($event.target.value)">
+                    <option value=1 selected>Selektor</option>
+                    <option value=2 selected>Clan organizacionog odbora</option>
+                    <option value=3 selected>Glumac</option>
+                    <option value=4 selected>Reditelj</option>
+                    <option value=5 selected>Other</option>
+                </select>
+            </div>
+            <div *ngIf="f.tr.touched && f.tr.invalid" class="alert alert-danger">
+                <div *ngIf="f.tr.errors.required">Tip radnika is required.</div>
+            </div>
+        </div>
+
+        <div *ngIf="izbor != 2 && izbor != 5">
+            <div class="form-group">
+                <label for="brPredstava">{{labelaRadnika}}</label>
+                <div class="input-group mb-3 border border-secondary rounded">
+                    <input type="number" id="brPredstava" #brPredstava min="1"
+                        formControlName="brPredstava" class="form-control" placeholder="broj predstava">
+                </div>
+                <div *ngIf="f.brPredstava.touched && f.brPredstava.invalid" class="alert alert-danger">
+                    <div *ngIf="f.brPredstava.errors.required">Kapacitet publike is required.</div>
+                    <div *ngIf="f.brPredstava.errors.min">Min od kapacitet publik is 1.</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>

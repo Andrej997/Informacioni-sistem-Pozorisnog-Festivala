@@ -1,0 +1,31 @@
+<div class="container">
+    <h3>Create pozoriste</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-group">
+            <label for="naziv">Naziv</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="text" id="naziv" #naziv
+                    formControlName="naziv" class="form-control" placeholder="naziv pozorista">
+            </div>
+            <div *ngIf="f.naziv.touched && f.naziv.invalid" class="alert alert-danger">
+                <div *ngIf="f.naziv.errors.required">Name is required.</div>
+                <div *ngIf="f.naziv.errors.maxlength">Length of name must less than 50 character.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="brZaposlenih">Broj zaposlenih</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="number" id="brZaposlenih" #brZaposlenih min="1"
+                    formControlName="brZaposlenih" class="form-control" placeholder="broj zaposlenih">
+            </div>
+            <div *ngIf="f.brZaposlenih.touched && f.brZaposlenih.invalid" class="alert alert-danger">
+                <div *ngIf="f.brZaposlenih.errors.required">Broj zaposlenih is required.</div>
+                <div *ngIf="f.brZaposlenih.errors.min">Min od broj zaposlenih is 1.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,109 @@
+<div class="container">
+    <h3>Create festival</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-group">
+            <label for="company">Pozoriste</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="pozoriste" #pozoriste formControlName="pozoriste" class="form-control" (change)="onChange($event.target.value)">
+                    <option value="{{pozoriste.id}}" *ngFor="let pozoriste of allPozorista">
+                        {{pozoriste.naziv}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="f.pozoriste.touched && f.pozoriste.invalid" class="alert alert-danger">
+                <div *ngIf="f.pozoriste.errors.required">Pozoriste is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="naziv">Naziv</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="text" id="naziv" #naziv
+                    formControlName="naziv" class="form-control" placeholder="naziv festivala">
+            </div>
+            <div *ngIf="f.naziv.touched && f.naziv.invalid" class="alert alert-danger">
+                <div *ngIf="f.naziv.errors.required">Name is required.</div>
+                <div *ngIf="f.naziv.errors.maxlength">Length of name must less than 30 character.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="forma">Forma festivala</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="forma" #forma formControlName="forma" class="form-control" (change)="onChangeForma($event.target.value)">
+                    <option value="{{forma.id}}" *ngFor="let forma of allForma">
+                        {{forma.naziv}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="f.forma.touched && f.forma.invalid" class="alert alert-danger">
+                <div *ngIf="f.forma.errors.required">Forma is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="tema">Tema festivala</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="text" id="tema" #tema
+                    formControlName="tema" class="form-control" placeholder="tema festivala">
+            </div>
+            <div *ngIf="f.tema.touched && f.tema.invalid" class="alert alert-danger">
+                <div *ngIf="f.tema.errors.required">Tema is required.</div>
+                <div *ngIf="f.tema.errors.maxlength">Length of tema must less than 30 character.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="brojPozorista">Broj pozorista</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="number" id="brojPozorista" #brojPozorista min="1"
+                    formControlName="brojPozorista" class="form-control" placeholder="broj pozorista">
+            </div>
+            <div *ngIf="f.brojPozorista.touched && f.brojPozorista.invalid" class="alert alert-danger">
+                <div *ngIf="f.brojPozorista.errors.required">Broj pozorista is required.</div>
+                <div *ngIf="f.brojPozorista.errors.min">Min od broj pozorista is 1.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="budzet">Budzet festivala</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="number" id="budzet" #budzet min="1"
+                    formControlName="budzet" class="form-control" placeholder="budzet festivala">
+            </div>
+            <div *ngIf="f.budzet.touched && f.budzet.invalid" class="alert alert-danger">
+                <div *ngIf="f.budzet.errors.required">Broj pozorista is required.</div>
+                <div *ngIf="f.budzet.errors.min">Min od broj pozorista is 1.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="sponzor">Sponzor festivala</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="text" id="sponzor" #sponzor
+                    formControlName="sponzor" class="form-control" placeholder="sponzor festivala">
+            </div>
+            <div *ngIf="f.sponzor.touched && f.sponzor.invalid" class="alert alert-danger">
+                <div *ngIf="f.sponzor.errors.required">Tema is required.</div>
+                <div *ngIf="f.sponzor.errors.maxlength">Length of tema must less than 30 character.</div>
+            </div>
+        </div>
+
+        <div class="form-group" >
+            <label for="pocetakOdrzavanja">Pocetak Odrzavanja</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="datetime-local" id="pocetakOdrzavanja" #pocetakOdrzavanja formControlName="pocetakOdrzavanja" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group" >
+            <label for="krajOdrzavanja">Kraj Odrzavanja</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="datetime-local" id="krajOdrzavanja" #krajOdrzavanja formControlName="krajOdrzavanja" class="form-control">
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>

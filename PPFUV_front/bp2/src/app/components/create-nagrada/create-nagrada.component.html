@@ -1,0 +1,19 @@
+<div class="container">
+    <h3>Create nagrada</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-group">
+            <label for="iznos">Iznos nagrade</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="number" id="iznos" #iznos min="1"
+                    formControlName="iznos" class="form-control" placeholder="kapacitet nagrade">
+            </div>
+            <div *ngIf="f.iznos.touched && f.iznos.invalid" class="alert alert-danger">
+                <div *ngIf="f.iznos.errors.required">Iznos nagrade is required.</div>
+                <div *ngIf="f.iznos.errors.min">Min od iznos nagrade is 1.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>

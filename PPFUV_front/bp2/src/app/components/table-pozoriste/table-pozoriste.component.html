@@ -1,0 +1,36 @@
+<div class="container">
+    <h3>Pozorista</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">id</th>
+                    <th scope="col">Naziv</th>
+                    <th scope="col">Broj zaposlenih</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pozoriste of allPozorista">
+                    <th id={{pozoriste.id}} scope="row"
+                            style="cursor: pointer;">
+                        {{pozoriste.id}}
+                    </th>
+                    <td>{{pozoriste.naziv}}</td>
+                    <td>{{pozoriste.brZaposlenih}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning"
+                                id={{pozoriste.id}} (click)="changePozoriste($event)">
+                            CHANGE
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                id={{pozoriste.id}} (click)="deletePozoriste($event)">
+                            DELETE
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
