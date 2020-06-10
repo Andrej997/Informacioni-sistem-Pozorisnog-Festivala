@@ -3,7 +3,7 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
 
         <div class="form-group">
-            <label for="company">Pozoriste</label>
+            <label for="company">Pozoriste <label *ngIf="change">({{festival.pozoriste.naziv}})</label></label>
             <div class="input-group mb-3 border border-secondary rounded">
                 <select id="pozoriste" #pozoriste formControlName="pozoriste" class="form-control" (change)="onChange($event.target.value)">
                     <option value="{{pozoriste.id}}" *ngFor="let pozoriste of allPozorista">
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            <label for="forma">Forma festivala</label>
+            <label for="forma">Forma festivala <label *ngIf="change">({{festival.forma.naziv}})</label></label>
             <div class="input-group mb-3 border border-secondary rounded">
                 <select id="forma" #forma formControlName="forma" class="form-control" (change)="onChangeForma($event.target.value)">
                     <option value="{{forma.id}}" *ngFor="let forma of allForma">

@@ -1,0 +1,56 @@
+
+
+html,body {
+    margin:0;
+    background:#000;
+  }
+  
+  #bern {
+    width:112px;
+    height:156px;
+    margin:auto;  
+    background:url(https://i.imgur.com/ifk0SLH.png) repeat-x;
+    animation:walk .8s steps(6) infinite;
+    position:relative;
+    bottom:34px;
+  }
+  
+  @keyframes walk {
+    0% { background-position:0 }
+    100% { background-position:-672px }
+  }
+  
+  #sky {
+    background:url(https://i.imgur.com/PhHVjgw.png) repeat-X;
+    animation: movebg 9s linear infinite;
+  }
+  
+  #sea {
+    background:url(https://i.imgur.com/h75XWy8.png) repeat-x;
+    animation: movebg 6s linear infinite;
+    position:relative;
+    top:145px;
+    box-shadow:10px 10px 45px RGBA(0,0,0, 0.85) inset;
+  }
+  
+  @keyframes movebg {
+    0% { background-position:550px } 
+    100% { background-position:0 }
+  }
+  
+  #gb {
+    width:104px;
+    height:150px;
+    background:url(https://i.imgur.com/egTLaCy.png) no-repeat;
+    animation:gbwalk 1s steps(6) infinite;
+    margin:auto;
+    position:relative;
+    top:34px;
+  }
+  
+  @keyframes gbwalk {
+    0% { background-position:0 }
+    100% { background-position:-624px }
+  }
+
+  

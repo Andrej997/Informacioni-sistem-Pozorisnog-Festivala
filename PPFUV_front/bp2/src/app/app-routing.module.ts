@@ -11,6 +11,15 @@ import { CreateOrgOdbComponent } from './components/create-org-odb/create-org-od
 import { CreateNagradaComponent } from './components/create-nagrada/create-nagrada.component';
 import { CreateRadnikComponent } from './components/create-radnik/create-radnik.component';
 import { TablePozoristeComponent } from './components/table-pozoriste/table-pozoriste.component';
+import { TableFestivalComponent } from './components/table-festival/table-festival.component';
+import { TableFormaComponent } from './components/table-forma/table-forma.component';
+import { TablePropDeoFestComponent } from './components/table-prop-deo-fest/table-prop-deo-fest.component';
+import { TableSalaComponent } from './components/table-sala/table-sala.component';
+import { TablePredstavaComponent } from './components/table-predstava/table-predstava.component';
+import { TableUgovorComponent } from './components/table-ugovor/table-ugovor.component';
+import { TableOrgOdbComponent } from './components/table-org-odb/table-org-odb.component';
+import { TableNagradaComponent } from './components/table-nagrada/table-nagrada.component';
+import { TableRadnikComponent } from './components/table-radnik/table-radnik.component';
 
 
 const routes: Routes = [
@@ -23,43 +32,106 @@ const routes: Routes = [
   },
   {
     path: "createFestival",
-    component: CreateFestivalComponent
+    children: [
+      { path: "",  component: CreateFestivalComponent},
+      { path: ":id",  component: CreateFestivalComponent},
+    ]
   },
   {
     path: "createForma",
-    component: CreateFormaComponent
+    children: [
+      { path: "",  component: CreateFormaComponent},
+      { path: ":id",  component: CreateFormaComponent},
+    ]
   },
   {
     path: "createPropDeoFest",
-    component: CreatePropDeoFestComponent
+    children: [
+      { path: "",  component: CreatePropDeoFestComponent},
+      { path: ":id",  component: CreatePropDeoFestComponent},
+    ]
   },
   {
     path: "createSala",
-    component: CreateSalaComponent
+    children: [
+      { path: "",  component: CreateSalaComponent},
+      { path: ":id",  component: CreateSalaComponent},
+    ]
   },
   {
     path: "createPredstava",
-    component: CreatePredstavaComponent
+    children: [
+      { path: "",  component: CreatePredstavaComponent},
+      { path: ":id",  component: CreatePredstavaComponent},
+    ]
   },
   {
     path: "createUgovor",
-    component: CreateUgovorComponent
+    children: [
+      { path: "",  component: CreateUgovorComponent},
+      { path: ":id",  component: CreateUgovorComponent},
+    ]
   },
   {
     path: "createOrgOdb",
-    component: CreateOrgOdbComponent
+    children: [
+      { path: "",  component: CreateOrgOdbComponent},
+      { path: ":id",  component: CreateOrgOdbComponent},
+    ]
   },
   {
     path: "createNagrada",
-    component: CreateNagradaComponent
+    children: [
+      { path: "",  component: CreateNagradaComponent},
+      { path: ":id",  component: CreateNagradaComponent},
+    ]
   },
   {
     path: "createRadnik",
-    component: CreateRadnikComponent
+    children: [
+      { path: "",  component: CreateRadnikComponent},
+      { path: ":id",  component: CreateRadnikComponent},
+    ]
   },
   {
     path: "tablePozoriste",
     component: TablePozoristeComponent
+  },
+  {
+    path: "tableFestival",
+    component: TableFestivalComponent
+  },
+  {
+    path: "tableForma",
+    component: TableFormaComponent
+  },
+  {
+    path: "tablePropdeoFest",
+    component: TablePropDeoFestComponent
+  },
+  {
+    path: "tableSala",
+    component: TableSalaComponent
+  },
+  {
+    path: "tablePredstava",
+    component: TablePredstavaComponent
+  },
+  {
+    path: "tableUgovor",
+    component: TableUgovorComponent
+  },
+  {
+    path: "tableOrgOdb",
+    component: TableOrgOdbComponent
+  },
+  {
+    path: "tableNagrada",
+    component: TableNagradaComponent
+  },
+  {
+    path: "tableRadnik",
+    component: TableRadnikComponent
   },
 ];
 

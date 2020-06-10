@@ -1,0 +1,50 @@
+<div class="container">
+    <h3>Festivali</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">id</th>
+                    <th scope="col">Naziv</th>
+                    <th scope="col">Organizator</th>
+                    <th scope="col">Forma</th>
+                    <th scope="col">Tema</th>
+                    <th scope="col">Pocetak odrzavanja</th>
+                    <th scope="col">Kraj odrzavanja</th>
+                    <th scope="col">Sponzor</th>
+                    <th scope="col">Budzet</th>
+                    <th scope="col">Max broj ucesnika</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let festival of allFestivali">
+                    <th id={{festival.id}} scope="row"
+                            style="cursor: pointer;">
+                        {{festival.id}}
+                    </th>
+                    <td>{{festival.naziv}}</td>
+                    <td>{{festival.pozoriste.naziv}}</td>
+                    <td>{{festival.forma.naziv}}</td>
+                    <td>{{festival.tema}}</td>
+                    <td>{{festival.pocetakOdrzavanja}}</td>
+                    <td>{{festival.krajOdrzavanja}}</td>
+                    <td>{{festival.sponzor}}</td>
+                    <td>${{festival.budzet}}</td>
+                    <td>{{festival.brojPozorista}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning"
+                                id={{festival.id}} (click)="changeFestival($event)">
+                            CHANGE
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                id={{festival.id}} (click)="deleteFestival($event)">
+                            DELETE
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>

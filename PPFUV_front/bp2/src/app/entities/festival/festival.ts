@@ -13,8 +13,8 @@ export class Festival {
     brojPozorista: number; //* broj koji prima
     forma: Forma;
     budzet: number;
-
     pozoriste: Pozoriste;
+    
     nagrade: Array<Nagrada>;
     radnici: Array<Radnik>;
 }

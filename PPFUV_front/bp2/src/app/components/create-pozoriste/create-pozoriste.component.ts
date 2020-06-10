@@ -19,7 +19,7 @@ export class CreatePozoristeComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => { this.id = params['id']; });
-    if (this.id != 0) {
+    if (this.id != 0 && this.id != undefined) {
       this.httpService.getIdAction("Pozoriste", this.id).toPromise()
           .then(result => {
             this.pozoriste = result as Pozoriste;

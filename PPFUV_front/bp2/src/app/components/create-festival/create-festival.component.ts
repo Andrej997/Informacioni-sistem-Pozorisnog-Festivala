@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Pozoriste } from 'src/app/entities/pozoriste/pozoriste';
 import { Forma } from 'src/app/entities/forma/forma';
 import { HttpServiceService } from 'src/app/services/http-service/http-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-festival',
@@ -11,17 +12,59 @@ import { HttpServiceService } from 'src/app/services/http-service/http-service.s
   styleUrls: ['./create-festival.component.css']
 })
 export class CreateFestivalComponent implements OnInit {
+  id: number = 0;
+  festival: Festival;
+  change: boolean = false;
 
   allPozorista: Array<Pozoriste> = new Array<Pozoriste>();
   allForma: Array<Forma> = new Array<Forma>();
 
-  constructor(private httpService: HttpServiceService) { }
+  constructor(private httpService: HttpServiceService, private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => { this.id = params['id']; });
+    if (this.id != 0 && this.id != undefined) {
+      this.httpService.getIdAction("Festival", this.id).toPromise()
+          .then(result => {
+            this.festival = result as Festival;
+            this.form.setValue({
+              pozoriste: this.festival.pozoriste.naziv,
+              forma: this.festival.forma.naziv,
+              naziv: this.festival.naziv,
+              tema: this.festival.tema,
+              brojPozorista: this.festival.brojPozorista,
+              budzet: this.festival.budzet,
+              sponzor: this.festival.sponzor,
+              pocetakOdrzavanja: this.festival.pocetakOdrzavanja,
+              krajOdrzavanja: this.festival.krajOdrzavanja,
+            });
+            this.form.controls["pozoriste"].setValidators([]);
+            this.form.controls["pozoriste"].updateValueAndValidity(); 
+            this.form.controls["forma"].setValidators([]);
+            this.form.controls["forma"].updateValueAndValidity();
+            this.change = true;
+          })
+          .catch(
+            err => {
+              console.log(err)
+            });
+    }
     this.httpService.getAction('Pozoriste')
     .toPromise()
     .then(result => {
       this.allPozorista = result as Pozoriste[];
+      //console.log(this.allAeroplanes);
+    })
+    .catch(
+      err => {
+        console.log(err)
+      });
+
+  this.httpService.getAction('Forma')
+    .toPromise()
+    .then(result => {
+      this.allForma = result as Forma[];
       //console.log(this.allAeroplanes);
     })
     .catch(
@@ -49,7 +92,51 @@ export class CreateFestivalComponent implements OnInit {
   submit() {
     let festival: Festival = new Festival();
     festival.naziv = this.form.value.naziv;
+    for (let i = 0; i < this.allPozorista.length; ++i) {
+      if (this.allPozorista[i].id == this.form.value.pozoriste) {
+        festival.pozoriste = this.allPozorista[i];
+        break;
+      }
+    }
+    for (let i = 0; i < this.allForma.length; ++i) {
+      if (this.allForma[i].id == this.form.value.forma) {
+        festival.forma = this.allForma[i];
+        break;
+      }
+    }
+    festival.tema = this.form.value.tema;
+    festival.budzet = this.form.value.budzet;
+    festival.sponzor = this.form.value.sponzor;
+    festival.pocetakOdrzavanja = this.form.value.pocetakOdrzavanja;
+    festival.krajOdrzavanja = this.form.value.krajOdrzavanja;
     festival.brojPozorista = this.form.value.brojPozorista;
+
+    if (this.change == true) {
+      festival.id = this.festival.id;
+      if (this.form.value.pozoriste == this.festival.pozoriste.naziv)
+        festival.pozoriste = this.festival.pozoriste;
+      if (this.form.value.forma == this.festival.forma.naziv)
+        festival.forma = this.festival.forma;
+      this.httpService.putAction('Festival', festival).subscribe (
+        res => { 
+          this.form.reset(); 
+          this.router.navigate(['/tableFestival']);
+        },
+        err => { 
+          console.log(err);
+        });
+    }
+    else {
+      this.httpService.postAction('Festival', 'AddFestival', festival).subscribe(
+        res => { 
+          this.form.reset(); 
+          this.router.navigate(['/tableFestival']);
+        },
+        err => { 
+          console.log(err);
+        }
+      );
+    }
 
     console.log(festival);
   }

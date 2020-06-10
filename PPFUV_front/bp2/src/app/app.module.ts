@@ -17,6 +17,15 @@ import { CreateOrgOdbComponent } from './components/create-org-odb/create-org-od
 import { CreateNagradaComponent } from './components/create-nagrada/create-nagrada.component';
 import { CreateRadnikComponent } from './components/create-radnik/create-radnik.component';
 import { TablePozoristeComponent } from './components/table-pozoriste/table-pozoriste.component';
+import { TableFormaComponent } from './components/table-forma/table-forma.component';
+import { TableNagradaComponent } from './components/table-nagrada/table-nagrada.component';
+import { TableFestivalComponent } from './components/table-festival/table-festival.component';
+import { TableOrgOdbComponent } from './components/table-org-odb/table-org-odb.component';
+import { TablePredstavaComponent } from './components/table-predstava/table-predstava.component';
+import { TablePropDeoFestComponent } from './components/table-prop-deo-fest/table-prop-deo-fest.component';
+import { TableRadnikComponent } from './components/table-radnik/table-radnik.component';
+import { TableSalaComponent } from './components/table-sala/table-sala.component';
+import { TableUgovorComponent } from './components/table-ugovor/table-ugovor.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +41,16 @@ import { TablePozoristeComponent } from './components/table-pozoriste/table-pozo
     CreateOrgOdbComponent,
     CreateNagradaComponent,
     CreateRadnikComponent,
-    TablePozoristeComponent
+    TablePozoristeComponent,
+    TableFormaComponent,
+    TableNagradaComponent,
+    TableFestivalComponent,
+    TableOrgOdbComponent,
+    TablePredstavaComponent,
+    TablePropDeoFestComponent,
+    TableRadnikComponent,
+    TableSalaComponent,
+    TableUgovorComponent
   ],
   imports: [
     BrowserModule,
