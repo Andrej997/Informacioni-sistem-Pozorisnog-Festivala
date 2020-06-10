@@ -106,7 +106,7 @@ const routes: Routes = [
     component: TableFormaComponent
   },
   {
-    path: "tablePropdeoFest",
+    path: "tablePropDeoFest",
     component: TablePropDeoFestComponent
   },
   {

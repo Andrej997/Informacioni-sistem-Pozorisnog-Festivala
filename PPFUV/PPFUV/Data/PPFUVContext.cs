@@ -15,5 +15,6 @@ namespace PPFUV.Data
         public DbSet<Pozoriste> Pozorista { get; set; }
         public DbSet<Forma> Forme { get; set; }
         public DbSet<Festival> Festivali { get; set; }
+        public DbSet<PropDeoFest> PropDeoFesta { get; set; }
     }
 }

@@ -1,1 +1,36 @@
-<p>table-prop-deo-fest works!</p>
+<div class="container">
+    <h3>Propratni delovi festivala</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">id</th>
+                    <th scope="col">Naziv</th>
+                    <th scope="col">Vreme odrzavanja</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let propDeoFest of allPropDeoFest">
+                    <th id={{propDeoFest.id}} scope="row"
+                            style="cursor: pointer;">
+                        {{propDeoFest.id}}
+                    </th>
+                    <td>{{propDeoFest.naziv}}</td>
+                    <td>{{propDeoFest.vremeOdrzavanja}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning"
+                                id={{propDeoFest.id}} (click)="changePropDeoFest($event)">
+                            CHANGE
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                id={{propDeoFest.id}} (click)="deletePropDeoFest($event)">
+                            DELETE
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
