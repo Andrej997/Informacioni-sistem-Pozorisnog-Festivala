@@ -1,1 +1,36 @@
-<p>table-ugovor works!</p>
+<div class="container">
+    <h3>Ugovori</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">id</th>
+                    <th scope="col">Datum sklapanja</th>
+                    <th scope="col">Svota</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ugovor of allUgovor">
+                    <th id={{ugovor.id}} scope="row"
+                            style="cursor: pointer;">
+                        {{ugovor.id}}
+                    </th>
+                    <td>{{ugovor.datumSklapanja}}</td>
+                    <td>{{ugovor.svota}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning"
+                                id={{ugovor.id}} (click)="changeUgovor($event)">
+                            CHANGE
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                id={{ugovor.id}} (click)="deleteUgovor($event)">
+                            DELETE
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>

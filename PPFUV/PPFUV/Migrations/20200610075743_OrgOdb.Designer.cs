@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200610075743_OrgOdb")]
+    partial class OrgOdb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,21 +77,6 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Forme");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Nagrada", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("iznos")
-                        .HasColumnType("float");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Nagrade");
                 });
 
             modelBuilder.Entity("PPFUV.Model.OrgOdb", b =>

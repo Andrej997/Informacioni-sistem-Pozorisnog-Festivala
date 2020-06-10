@@ -1,1 +1,32 @@
-<p>table-org-odb works!</p>
+<div class="container">
+    <h3>Organizacioni odbori</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">id</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let orgOdb of allOrgOdb">
+                    <th id={{orgOdb.id}} scope="row"
+                            style="cursor: pointer;">
+                        {{orgOdb.id}}
+                    </th>
+                    <td>
+                        <button type="button" class="btn btn-warning"
+                                id={{orgOdb.id}} (click)="changeOrgOdb($event)">
+                            CHANGE
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                id={{orgOdb.id}} (click)="deleteOrgOdb($event)">
+                            DELETE
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200610075503_Predstava")]
+    partial class Predstava
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,33 +77,6 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Forme");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Nagrada", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("iznos")
-                        .HasColumnType("float");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Nagrade");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.OrgOdb", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("id");
-
-                    b.ToTable("OrgOdbori");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Pozoriste", b =>
@@ -168,24 +143,6 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Sale");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Ugovor", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("datumSklapanja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("svota")
-                        .HasColumnType("float");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Ugovori");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Festival", b =>

@@ -1,1 +1,34 @@
-<p>table-predstava works!</p>
+<div class="container">
+    <h3>Predstave</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">id</th>
+                    <th scope="col">Naziv</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let predstava of allPredstava">
+                    <th id={{predstava.id}} scope="row"
+                            style="cursor: pointer;">
+                        {{predstava.id}}
+                    </th>
+                    <td>{{predstava.naziv}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning"
+                                id={{predstava.id}} (click)="changePredstava($event)">
+                            CHANGE
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                id={{predstava.id}} (click)="deletePredstava($event)">
+                            DELETE
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
