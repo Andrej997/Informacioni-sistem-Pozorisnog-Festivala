@@ -90,7 +90,13 @@ const routes: Routes = [
     path: "createRadnik",
     children: [
       { path: "",  component: CreateRadnikComponent},
-      { path: ":id",  component: CreateRadnikComponent},
+      { 
+        path: ":id",
+        children: [
+          { path: "",  component: CreateRadnikComponent},
+          { path: ":uloga",  component: CreateRadnikComponent},
+        ]
+      },
     ]
   },
   {

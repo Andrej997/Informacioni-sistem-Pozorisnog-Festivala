@@ -3,39 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200610090041_Radnik")]
+    partial class Radnik
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("PPFUV.Model.ClanOrgOdb", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("ClanOrgOdbora");
-                });
 
             modelBuilder.Entity("PPFUV.Model.Festival", b =>
                 {
@@ -93,27 +77,6 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Forme");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Glumac", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("brPredstava")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Glumci");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Nagrada", b =>
@@ -201,6 +164,10 @@ namespace PPFUV.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ime")
                         .HasColumnType("nvarchar(max)");
 
@@ -210,27 +177,8 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Radnici");
-                });
 
-            modelBuilder.Entity("PPFUV.Model.Reditelj", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("brPredstava")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Reditelji");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Radnik");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Sala", b =>
@@ -246,27 +194,6 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Sale");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Selektor", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("brOgledanihSerija")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Selektori");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Ugovor", b =>
@@ -285,6 +212,44 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Ugovori");
+                });
+
+            modelBuilder.Entity("PPFUV.Model.ClanOrgOdb", b =>
+                {
+                    b.HasBaseType("PPFUV.Model.Radnik");
+
+                    b.HasDiscriminator().HasValue("ClanOrgOdb");
+                });
+
+            modelBuilder.Entity("PPFUV.Model.Glumac", b =>
+                {
+                    b.HasBaseType("PPFUV.Model.Radnik");
+
+                    b.Property<int>("brPredstava")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Glumac");
+                });
+
+            modelBuilder.Entity("PPFUV.Model.Reditelj", b =>
+                {
+                    b.HasBaseType("PPFUV.Model.Radnik");
+
+                    b.Property<int>("brPredstava")
+                        .HasColumnName("Reditelj_brPredstava")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Reditelj");
+                });
+
+            modelBuilder.Entity("PPFUV.Model.Selektor", b =>
+                {
+                    b.HasBaseType("PPFUV.Model.Radnik");
+
+                    b.Property<int>("brOgledanihSerija")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Selektor");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Festival", b =>

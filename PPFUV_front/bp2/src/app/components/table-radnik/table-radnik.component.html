@@ -1,1 +1,176 @@
-<p>table-radnik works!</p>
+<div class="container">
+    <h3>Selektori</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-info">
+                <th scope="col">id</th>
+                <th scope="col">Ime</th>
+                <th scope="col">Prezime</th>
+                <th scope="col">Change</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let radnik of allSelektor">
+                <th id={{radnik.id}} scope="row"
+                        style="cursor: pointer;">
+                    {{radnik.id}}
+                </th>
+                <td>{{radnik.ime}}</td>
+                <td>{{radnik.prezime}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning"
+                            id={{radnik.id}} (click)="changeSelektor($event)">
+                        CHANGE
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger"
+                            id={{radnik.id}} (click)="deleteSelektor($event)">
+                        DELETE
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Clanovi organizacionih odbora</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-info">
+                <th scope="col">id</th>
+                <th scope="col">Ime</th>
+                <th scope="col">Prezime</th>
+                <th scope="col">Change</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let radnik of allClanOrgOdb">
+                <th id={{radnik.id}} scope="row"
+                        style="cursor: pointer;">
+                    {{radnik.id}}
+                </th>
+                <td>{{radnik.ime}}</td>
+                <td>{{radnik.prezime}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning"
+                            id={{radnik.id}} (click)="changeClanOdbOrg($event)">
+                        CHANGE
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger"
+                            id={{radnik.id}} (click)="deleteClanOdbOrg($event)">
+                        DELETE
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Glumci</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-info">
+                <th scope="col">id</th>
+                <th scope="col">Ime</th>
+                <th scope="col">Prezime</th>
+                <th scope="col">Change</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let radnik of allGlumac">
+                <th id={{radnik.id}} scope="row"
+                        style="cursor: pointer;">
+                    {{radnik.id}}
+                </th>
+                <td>{{radnik.ime}}</td>
+                <td>{{radnik.prezime}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning"
+                            id={{radnik.id}} (click)="changeGlumac($event)">
+                        CHANGE
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger"
+                            id={{radnik.id}} (click)="deleteGlumac($event)">
+                        DELETE
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Reditelji</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-info">
+                <th scope="col">id</th>
+                <th scope="col">Ime</th>
+                <th scope="col">Prezime</th>
+                <th scope="col">Change</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let radnik of allReditelj">
+                <th id={{radnik.id}} scope="row"
+                        style="cursor: pointer;">
+                    {{radnik.id}}
+                </th>
+                <td>{{radnik.ime}}</td>
+                <td>{{radnik.prezime}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning"
+                            id={{radnik.id}} (click)="changeReditelj($event)">
+                        CHANGE
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger"
+                            id={{radnik.id}} (click)="deleteReditelj($event)">
+                        DELETE
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Other radnici</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-info">
+                <th scope="col">id</th>
+                <th scope="col">Ime</th>
+                <th scope="col">Prezime</th>
+                <th scope="col">Change</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let radnik of allRadnik">
+                <th id={{radnik.id}} scope="row"
+                        style="cursor: pointer;">
+                    {{radnik.id}}
+                </th>
+                <td>{{radnik.ime}}</td>
+                <td>{{radnik.prezime}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning"
+                            id={{radnik.id}} (click)="changeRadnik($event)">
+                        CHANGE
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger"
+                            id={{radnik.id}} (click)="deleteRadnik($event)">
+                        DELETE
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

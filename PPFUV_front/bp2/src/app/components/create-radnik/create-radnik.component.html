@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="!change">
             <label for="tr">Tip radnika</label>
             <div class="input-group mb-3 border border-secondary rounded">
                 <select id="tr" #tr formControlName="tr" class="form-control" (change)="onChange($event.target.value)">

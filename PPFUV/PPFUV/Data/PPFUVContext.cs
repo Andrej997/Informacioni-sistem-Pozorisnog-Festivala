@@ -21,5 +21,10 @@ namespace PPFUV.Data
         public DbSet<Ugovor> Ugovori { get; set; }
         public DbSet<OrgOdb> OrgOdbori { get; set; }
         public DbSet<Nagrada> Nagrade { get; set; }
+        public DbSet<Radnik> Radnici { get; set; }
+        public DbSet<Selektor> Selektori { get; set; }
+        public DbSet<ClanOrgOdb> ClanOrgOdbora { get; set; }
+        public DbSet<Glumac> Glumci { get; set; }
+        public DbSet<Reditelj> Reditelji { get; set; }
     }
 }
