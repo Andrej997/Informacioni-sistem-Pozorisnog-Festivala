@@ -23,13 +23,16 @@ namespace PPFUV.Controllers
         // GET: api/Pozoriste
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pozoriste>>> GetPozorista() 
-            => await _context.Pozorista.ToListAsync();
+            => await _context.Pozorista
+                .Include(x => x.sale)
+                .ToListAsync();
 
         // GET: api/Pozoriste/1
         [HttpGet("{id}")]
         public async Task<ActionResult<Pozoriste>> GetPozoriste(int id)
         {
             Pozoriste pozoriste = await _context.Pozorista
+                .Include(x => x.sale)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (pozoriste == null)
@@ -49,6 +52,10 @@ namespace PPFUV.Controllers
 
             if (ValidateModel(pozoriste, true))
             {
+                foreach (var sala in pozoriste.sale)
+                {
+                    _context.Entry(sala).State = EntityState.Unchanged;
+                }
                 _context.Pozorista.Add(pozoriste);
                 await _context.SaveChangesAsync();
 

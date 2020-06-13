@@ -12,5 +12,7 @@ namespace PPFUV.Model
         public int id { get; set; }
 
         public int kapacPublike { get; set; }
+
+        public bool zauzeta { get; set; }
     }
 }

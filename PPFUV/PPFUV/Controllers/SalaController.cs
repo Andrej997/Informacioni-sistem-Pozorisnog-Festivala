@@ -23,7 +23,8 @@ namespace PPFUV.Controllers
         // GET: api/Sala
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Sala>>> GetSale()
-            => await _context.Sale.ToListAsync();
+            => await _context.Sale
+                        .ToListAsync();
 
         // GET: api/Sala/1
         [HttpGet("{id}")]

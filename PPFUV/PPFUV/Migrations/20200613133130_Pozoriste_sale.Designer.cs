@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200613133130_Pozoriste_sale")]
+    partial class Pozoriste_sale
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,9 +267,6 @@ namespace PPFUV.Migrations
 
                     b.Property<int>("kapacPublike")
                         .HasColumnType("int");
-
-                    b.Property<bool>("zauzeta")
-                        .HasColumnType("bit");
 
                     b.HasKey("id");
 

@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Pozoriste } from 'src/app/entities/pozoriste/pozoriste';
 import { HttpServiceService } from 'src/app/services/http-service/http-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Sala } from 'src/app/entities/sala/sala';
 
 @Component({
   selector: 'app-create-pozoriste',
@@ -13,6 +14,11 @@ export class CreatePozoristeComponent implements OnInit {
   id: number = 0;
   pozoriste: Pozoriste;
   change: boolean = false;
+
+  allSala: Array<Sala> = new Array<Sala>();
+
+  error: boolean = false;
+  errorText: string = "";
 
   constructor(private httpService: HttpServiceService, private router: Router,
     private route: ActivatedRoute) { }
@@ -25,8 +31,11 @@ export class CreatePozoristeComponent implements OnInit {
             this.pozoriste = result as Pozoriste;
             this.form.setValue({
               naziv: this.pozoriste.naziv,
-              brZaposlenih: this.pozoriste.brZaposlenih
+              brZaposlenih: this.pozoriste.brZaposlenih,
+              sala: this.pozoriste.sale[0].id
             })
+            this.form.controls["sala"].setValidators([]);
+            this.form.controls["sala"].updateValueAndValidity(); 
             this.change = true;
           })
           .catch(
@@ -34,11 +43,21 @@ export class CreatePozoristeComponent implements OnInit {
               console.log(err)
             });
     }
+
+    this.httpService.getAction("Sala").toPromise()
+      .then(result => {
+        this.allSala = result as Sala[];
+      })
+      .catch(
+        err => {
+          console.log(err)
+        });
   }
 
   form = new FormGroup({
     naziv: new FormControl("", [Validators.required, Validators.maxLength(50)]),
     brZaposlenih: new FormControl(0,[Validators.required, Validators.min(1)]),
+    sala: new FormControl("",[Validators.required]),
   });
   
   get f(){
@@ -62,15 +81,37 @@ export class CreatePozoristeComponent implements OnInit {
         });
     }
     else {
-      this.httpService.postAction('Pozoriste', 'AddPozoriste', pozoriste).subscribe(
-        res => { 
-          this.form.reset(); 
-          this.router.navigate(['/tablePozoriste']);
-        },
-        err => { 
-          console.log(err);
+      pozoriste.sale = new Array<Sala>();
+      this.allSala.forEach(element => {
+        if (this.form.value.sala == element.id && element.zauzeta == false) {
+          pozoriste.sale.push(element);
         }
-      );
+      });
+      if (pozoriste.sale.length > 0) {
+        this.error = false;
+        this.httpService.postAction('Pozoriste', 'AddPozoriste', pozoriste).subscribe(
+          res => { 
+            let pozoriste = res as Pozoriste;
+            pozoriste.sale[0].zauzeta = true;
+            this.httpService.putAction('Sala', pozoriste.sale[0]).subscribe (
+              res => { 
+                this.form.reset(); 
+                this.router.navigate(['/tablePozoriste']);
+              },
+              err => { 
+                console.log(err);
+              });
+            this.form.reset(); 
+            this.router.navigate(['/tablePozoriste']);
+          },
+          err => { 
+            console.log(err);
+          });
+      }
+      else {
+        this.error = true;
+        this.errorText = "Ta sala je zauzeta!";
+      }
     }
 
     console.log(pozoriste);

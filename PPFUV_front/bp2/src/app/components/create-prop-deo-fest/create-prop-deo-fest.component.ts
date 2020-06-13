@@ -25,7 +25,7 @@ export class CreatePropDeoFestComponent implements OnInit {
             this.propDeoFest = result as PropDeoFest;
             this.form.setValue({
               naziv: this.propDeoFest.naziv,
-              vremeOdrzavanja: this.propDeoFest.vremeOdrzavanja
+              // vremeOdrzavanja: this.propDeoFest.vremeOdrzavanja
             })
             this.change = true;
           })
@@ -38,7 +38,7 @@ export class CreatePropDeoFestComponent implements OnInit {
 
   form = new FormGroup({
     naziv: new FormControl("", [Validators.required, Validators.maxLength(30)]),
-    vremeOdrzavanja: new FormControl("",[Validators.required]),
+    // vremeOdrzavanja: new FormControl("",[Validators.required]),
   });
   
   get f(){
@@ -48,7 +48,7 @@ export class CreatePropDeoFestComponent implements OnInit {
   submit() {
     let propDeoFest: PropDeoFest = new PropDeoFest();
     propDeoFest.naziv = this.form.value.naziv;
-    propDeoFest.vremeOdrzavanja = this.form.value.vremeOdrzavanja;
+    // propDeoFest.vremeOdrzavanja = this.form.value.vremeOdrzavanja;
 
     if (this.change == true) {
       propDeoFest.id = this.propDeoFest.id;

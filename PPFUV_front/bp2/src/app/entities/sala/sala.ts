@@ -4,5 +4,5 @@ export class Sala {
     id: number;
     kapacPublike: number;
 
-    pozoriste: Pozoriste;
+    zauzeta: boolean;
 }

@@ -26,6 +26,24 @@
             </div>
         </div>
 
+        
+        <div class="form-group" *ngIf="!change">
+            <label for="sala">Sala</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="sala" #sala formControlName="sala" class="form-control">
+                    <option value="{{sala1.id}}" *ngFor="let sala1 of allSala" >
+                        {{sala1.kapacPublike}} <span *ngIf="sala1.zauzeta">[zauzeta]</span>
+                    </option>
+                </select>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="error">
+                {{errorText}}
+            </div>
+            <div *ngIf="f.sala.touched && f.sala.invalid" class="alert alert-danger">
+                <div *ngIf="f.sala.errors.required">Sala is required.</div>
+            </div>
+        </div>
+
         <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
     </form>
 </div>

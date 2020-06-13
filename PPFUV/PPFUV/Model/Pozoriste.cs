@@ -14,5 +14,7 @@ namespace PPFUV.Model
         public int brZaposlenih { get; set; }
 
         public string naziv { get; set; }
+
+        public ICollection<Sala> sale { get; set; }
     }
 }

@@ -6,6 +6,7 @@
                     <th scope="col">id</th>
                     <th scope="col">Naziv</th>
                     <th scope="col">Broj zaposlenih</th>
+                    <th scope="col">Glavna sala</th>
                     <th scope="col">Change</th>
                     <th scope="col">Delete</th>
                 </tr>
@@ -18,6 +19,7 @@
                     </th>
                     <td>{{pozoriste.naziv}}</td>
                     <td>{{pozoriste.brZaposlenih}}</td>
+                    <td>{{pozoriste.sale[0].id}}</td>
                     <td>
                         <button type="button" class="btn btn-warning"
                                 id={{pozoriste.id}} (click)="changePozoriste($event)">
