@@ -29,9 +29,9 @@ export class CreateOrgOdbComponent implements OnInit {
           .then(result => {
             this.orgOdb = result as OrgOdb;
             this.form.setValue({
-              clanOrgOdb1: this.orgOdb.clanoviOrgOdbora[0].id,
-              clanOrgOdb2: this.orgOdb.clanoviOrgOdbora[1].id,
-              clanOrgOdb3: this.orgOdb.clanoviOrgOdbora[2].id,
+              clanOrgOdb1: this.orgOdb.clanOrgOdbora1.id,
+              clanOrgOdb2: this.orgOdb.clanOrgOdbora2.id,
+              clanOrgOdb3: this.orgOdb.clanOrgOdbora3.id,
               selektor: this.orgOdb.selektor.id,
             })
             this.change = true;
@@ -82,17 +82,6 @@ export class CreateOrgOdbComponent implements OnInit {
       //console.log(orgOdb);
       this.httpService.putAction('OrgOdb', orgOdb).subscribe (
         res => { 
-          console.log(res);
-          let orgOdbRet = res as OrgOdb;
-          orgOdb.clanoviOrgOdbora.forEach(element => {
-            element.OrgOdbid = orgOdb.id;
-            this.httpService.putAction('ClanOrgOdb', element).subscribe (
-              res => { 
-              },
-              err => { 
-                console.log(err);
-              });
-          });
           this.form.reset(); 
           this.router.navigate(['/tableOrgOdb']);
         },
@@ -106,15 +95,6 @@ export class CreateOrgOdbComponent implements OnInit {
       this.httpService.postAction('OrgOdb', 'AddOrgOdb', orgOdb).subscribe(
         res => { 
           let orgOdbRet = res as OrgOdb;
-          orgOdb.clanoviOrgOdbora.forEach(element => {
-            element.OrgOdbid = orgOdb.id;
-            this.httpService.putAction('ClanOrgOdb', element).subscribe (
-              res => { 
-              },
-              err => { 
-                console.log(err);
-              });
-          });
           this.form.reset(); 
           this.router.navigate(['/tableOrgOdb']);
         },
@@ -128,10 +108,15 @@ export class CreateOrgOdbComponent implements OnInit {
   }
 
   addToOrgOdb(orgOdb: OrgOdb): OrgOdb {
-    orgOdb.clanoviOrgOdbora = new Array<ClanOrgOdb>();
     this.allClanOrgOdb.forEach(element => {
-      if (element.id == this.form.value.clanOrgOdb1 || element.id == this.form.value.clanOrgOdb2 || element.id == this.form.value.clanOrgOdb3) {
-        orgOdb.clanoviOrgOdbora.push(element);
+      if (element.id == this.form.value.clanOrgOdb1) {
+        orgOdb.clanOrgOdbora1 = element;
+      }
+      if (element.id == this.form.value.clanOrgOdb2) {
+        orgOdb.clanOrgOdbora2 = element;
+      }
+      if (element.id == this.form.value.clanOrgOdb3) {
+        orgOdb.clanOrgOdbora3 = element;
       }
     });
 

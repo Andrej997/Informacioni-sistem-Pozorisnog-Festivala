@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200613110349_Selektor_organizacioniOdboriId")]
+    partial class Selektor_organizacioniOdboriId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,9 @@ namespace PPFUV.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("OrgOdbid")
+                        .HasColumnType("int");
+
                     b.Property<string>("ime")
                         .HasColumnType("nvarchar(max)");
 
@@ -33,6 +38,8 @@ namespace PPFUV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("OrgOdbid");
 
                     b.ToTable("ClanOrgOdbora");
                 });
@@ -138,25 +145,10 @@ namespace PPFUV.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("clanOrgOdbora1id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("clanOrgOdbora2id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("clanOrgOdbora3id")
-                        .HasColumnType("int");
-
                     b.Property<int?>("selektorid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
-
-                    b.HasIndex("clanOrgOdbora1id");
-
-                    b.HasIndex("clanOrgOdbora2id");
-
-                    b.HasIndex("clanOrgOdbora3id");
 
                     b.HasIndex("selektorid");
 
@@ -310,6 +302,13 @@ namespace PPFUV.Migrations
                     b.ToTable("Ugovori");
                 });
 
+            modelBuilder.Entity("PPFUV.Model.ClanOrgOdb", b =>
+                {
+                    b.HasOne("PPFUV.Model.OrgOdb", null)
+                        .WithMany("clanoviOrgOdbora")
+                        .HasForeignKey("OrgOdbid");
+                });
+
             modelBuilder.Entity("PPFUV.Model.Festival", b =>
                 {
                     b.HasOne("PPFUV.Model.Forma", "forma")
@@ -323,18 +322,6 @@ namespace PPFUV.Migrations
 
             modelBuilder.Entity("PPFUV.Model.OrgOdb", b =>
                 {
-                    b.HasOne("PPFUV.Model.ClanOrgOdb", "clanOrgOdbora1")
-                        .WithMany()
-                        .HasForeignKey("clanOrgOdbora1id");
-
-                    b.HasOne("PPFUV.Model.ClanOrgOdb", "clanOrgOdbora2")
-                        .WithMany()
-                        .HasForeignKey("clanOrgOdbora2id");
-
-                    b.HasOne("PPFUV.Model.ClanOrgOdb", "clanOrgOdbora3")
-                        .WithMany()
-                        .HasForeignKey("clanOrgOdbora3id");
-
                     b.HasOne("PPFUV.Model.Selektor", "selektor")
                         .WithMany()
                         .HasForeignKey("selektorid");

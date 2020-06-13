@@ -16,5 +16,7 @@ namespace PPFUV.Model
         public string prezime { get; set; }
 
         public int brOgledanihSerija { get; set; }
+
+        public int organizacioniOdboriId { get; set; }
     }
 }

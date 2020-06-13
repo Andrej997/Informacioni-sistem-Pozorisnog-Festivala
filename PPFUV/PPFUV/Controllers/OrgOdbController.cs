@@ -24,7 +24,9 @@ namespace PPFUV.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrgOdb>>> GetOrgOdbe()
             => await _context.OrgOdbori
-                    .Include(x => x.clanoviOrgOdbora)
+                    .Include(x => x.clanOrgOdbora1)
+                    .Include(x => x.clanOrgOdbora2)
+                    .Include(x => x.clanOrgOdbora3)
                     .Include(x => x.selektor)
                     .ToListAsync();
 
@@ -33,7 +35,9 @@ namespace PPFUV.Controllers
         public async Task<ActionResult<OrgOdb>> GetOrgOdb(int id)
         {
             OrgOdb model = await _context.OrgOdbori
-                .Include(x => x.clanoviOrgOdbora)
+                .Include(x => x.clanOrgOdbora1)
+                .Include(x => x.clanOrgOdbora2)
+                .Include(x => x.clanOrgOdbora3)
                 .Include(x => x.selektor)
                 .FirstOrDefaultAsync(i => i.id == id);
 
@@ -54,11 +58,11 @@ namespace PPFUV.Controllers
 
             if (ValidateModel(model, true))
             {
-                foreach (var clan in model.clanoviOrgOdbora)
-                {
-                    _context.Entry(clan).State = EntityState.Unchanged;
-                }
                 
+                _context.Entry(model.clanOrgOdbora1).State = EntityState.Unchanged;
+                _context.Entry(model.clanOrgOdbora2).State = EntityState.Unchanged;
+                _context.Entry(model.clanOrgOdbora3).State = EntityState.Unchanged;
+
                 _context.Entry(model.selektor).State = EntityState.Unchanged;
                 
                 _context.OrgOdbori.Add(model);

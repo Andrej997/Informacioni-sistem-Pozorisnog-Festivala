@@ -18,7 +18,7 @@ export class TableOrgOdbComponent implements OnInit {
     .toPromise()
     .then(result => {
       this.allOrgOdb = result as OrgOdb[];
-      //console.log(this.allAeroplanes);
+      console.log(this.allOrgOdb);
     })
     .catch(
       err => {

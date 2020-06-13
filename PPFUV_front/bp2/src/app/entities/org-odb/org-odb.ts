@@ -5,7 +5,10 @@ import { Pozoriste } from '../pozoriste/pozoriste';
 export class OrgOdb {
     id: number;
 
-    clanoviOrgOdbora: Array<ClanOrgOdb>;
+    clanOrgOdbora1: ClanOrgOdb;
+    clanOrgOdbora2: ClanOrgOdb;
+    clanOrgOdbora3: ClanOrgOdb;
+
     selektor: Selektor;
 
     pozorista: Array<Pozoriste>;
