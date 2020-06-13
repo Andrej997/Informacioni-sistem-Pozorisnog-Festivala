@@ -23,13 +23,18 @@ namespace PPFUV.Controllers
         // GET: api/OrgOdb
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrgOdb>>> GetOrgOdbe()
-            => await _context.OrgOdbori.ToListAsync();
+            => await _context.OrgOdbori
+                    .Include(x => x.clanoviOrgOdbora)
+                    .Include(x => x.selektor)
+                    .ToListAsync();
 
         // GET: api/OrgOdb/1
         [HttpGet("{id}")]
         public async Task<ActionResult<OrgOdb>> GetOrgOdb(int id)
         {
             OrgOdb model = await _context.OrgOdbori
+                .Include(x => x.clanoviOrgOdbora)
+                .Include(x => x.selektor)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (model == null)
@@ -49,6 +54,13 @@ namespace PPFUV.Controllers
 
             if (ValidateModel(model, true))
             {
+                foreach (var clan in model.clanoviOrgOdbora)
+                {
+                    _context.Entry(clan).State = EntityState.Unchanged;
+                }
+                
+                _context.Entry(model.selektor).State = EntityState.Unchanged;
+                
                 _context.OrgOdbori.Add(model);
                 await _context.SaveChangesAsync();
 
@@ -59,7 +71,7 @@ namespace PPFUV.Controllers
 
         // PUT: api/OrgOdb
         [HttpPut]
-        public async Task<IActionResult> UpdateOrgOdb(OrgOdb model)
+        public async Task<ActionResult<OrgOdb>> UpdateOrgOdb(OrgOdb model)
         {
             _context.Entry(model).State = EntityState.Modified;
 
@@ -79,7 +91,7 @@ namespace PPFUV.Controllers
                 }
             }
 
-            return Ok();
+            return model;
         }
 
         // DELETE: api/OrgOdb/DeletOrgOdb/1

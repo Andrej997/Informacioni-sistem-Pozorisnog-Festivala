@@ -3,5 +3,7 @@ import { OrgOdb } from '../org-odb/org-odb';
 
 export class ClanOrgOdb extends Radnik{
 
-    orgOdbori: Array<OrgOdb>;
+   // orgOdbori: Array<OrgOdb>;
+
+    OrgOdbid: number;
 }

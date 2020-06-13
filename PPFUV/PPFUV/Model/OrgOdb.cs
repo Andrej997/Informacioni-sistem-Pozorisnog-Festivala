@@ -10,5 +10,9 @@ namespace PPFUV.Model
     {
         [Key]
         public int id { get; set; }
+
+        public ICollection<ClanOrgOdb> clanoviOrgOdbora { get; set; }
+
+        public Selektor selektor { get; set; }
     }
 }

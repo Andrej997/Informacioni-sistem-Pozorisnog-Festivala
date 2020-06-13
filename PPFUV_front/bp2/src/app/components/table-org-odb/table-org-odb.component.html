@@ -4,7 +4,11 @@
             <thead>
                 <tr class="table-info">
                     <th scope="col">id</th>
-                    <th scope="col">Change</th>
+                    <th scope="col">Clan 1</th>
+                    <th scope="col">Clan 2</th>
+                    <th scope="col">Clan 3</th>
+                    <th scope="col">Selektor</th>
+                    <!-- <th scope="col">Change</th> -->
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
@@ -14,12 +18,24 @@
                             style="cursor: pointer;">
                         {{orgOdb.id}}
                     </th>
-                    <td>
+                    <th scope="row">
+                        {{orgOdb.clanoviOrgOdbora[0].ime}} {{orgOdb.clanoviOrgOdbora[0].prezime}}
+                    </th>
+                    <th scope="row">
+                        {{orgOdb.clanoviOrgOdbora[1].ime}} {{orgOdb.clanoviOrgOdbora[1].prezime}}
+                    </th>
+                    <th scope="row">
+                        {{orgOdb.clanoviOrgOdbora[2].ime}} {{orgOdb.clanoviOrgOdbora[2].prezime}}
+                    </th>
+                    <th scope="row">
+                        {{orgOdb.selektor.ime}} {{orgOdb.selektor.prezime}}
+                    </th>
+                    <!-- <td>
                         <button type="button" class="btn btn-warning"
                                 id={{orgOdb.id}} (click)="changeOrgOdb($event)">
                             CHANGE
                         </button>
-                    </td>
+                    </td> -->
                     <td>
                         <button type="button" class="btn btn-danger"
                                 id={{orgOdb.id}} (click)="deleteOrgOdb($event)">

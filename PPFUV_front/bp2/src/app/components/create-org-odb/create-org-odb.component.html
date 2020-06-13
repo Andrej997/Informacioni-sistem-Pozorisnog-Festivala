@@ -2,6 +2,62 @@
     <h3>Create organizacioni odbor</h3>
     <form [formGroup]="form" (ngSubmit)="submit()">
 
+        <div class="form-group">
+            <label for="clanOrgOdb1">Prvi clan organizacionog odbora</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="clanOrgOdb1" #clanOrgOdb1 formControlName="clanOrgOdb1" class="form-control">
+                    <option value="{{clanOrgOdb.id}}" *ngFor="let clanOrgOdb of allClanOrgOdb">
+                        {{clanOrgOdb.ime}} {{clanOrgOdb.prezime}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="f.clanOrgOdb1.touched && f.clanOrgOdb1.invalid" class="alert alert-danger">
+                <div *ngIf="f.clanOrgOdb1.errors.required">Clan organizacionog odbora is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="clanOrgOdb2">Drugi clan organizacionog odbora</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="clanOrgOdb2" #clanOrgOdb2 formControlName="clanOrgOdb2" class="form-control">
+                    <option value="{{clanOrgOdb.id}}" *ngFor="let clanOrgOdb of allClanOrgOdb">
+                        {{clanOrgOdb.ime}} {{clanOrgOdb.prezime}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="f.clanOrgOdb2.touched && f.clanOrgOdb2.invalid" class="alert alert-danger">
+                <div *ngIf="f.clanOrgOdb2.errors.required">Clan organizacionog odbora is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="clanOrgOdb3">Treci clan organizacionog odbora</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="clanOrgOdb3" #clanOrgOdb3 formControlName="clanOrgOdb3" class="form-control">
+                    <option value="{{clanOrgOdb.id}}" *ngFor="let clanOrgOdb of allClanOrgOdb">
+                        {{clanOrgOdb.ime}} {{clanOrgOdb.prezime}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="f.clanOrgOdb3.touched && f.clanOrgOdb3.invalid" class="alert alert-danger">
+                <div *ngIf="f.clanOrgOdb3.errors.required">Clan organizacionog odbora is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="selektor">Selektor</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="selektor" #selektor formControlName="selektor" class="form-control">
+                    <option value="{{selektor1.id}}" *ngFor="let selektor1 of allSelektor">
+                        {{selektor1.ime}} {{selektor1.prezime}} {{selektor1.brOgledanihSerija}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="f.selektor.touched && f.selektor.invalid" class="alert alert-danger">
+                <div *ngIf="f.selektor.errors.required">Selektor is required.</div>
+            </div>
+        </div>
+
         <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
     </form>
 </div>

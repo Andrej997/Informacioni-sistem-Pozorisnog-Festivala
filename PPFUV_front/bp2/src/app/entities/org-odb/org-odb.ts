@@ -7,5 +7,6 @@ export class OrgOdb {
 
     clanoviOrgOdbora: Array<ClanOrgOdb>;
     selektor: Selektor;
+
     pozorista: Array<Pozoriste>;
 }
