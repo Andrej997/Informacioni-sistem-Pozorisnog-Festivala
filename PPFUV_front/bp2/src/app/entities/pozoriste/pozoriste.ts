@@ -10,6 +10,6 @@ export class Pozoriste {
     
     // festivali: Array<Festival>;
     // propDeloviFest: Array<PropDeoFest>;
-    // orgOdbor: OrgOdb;
+    orgOdb: OrgOdb;
     sale: Array<Sala>;
 }

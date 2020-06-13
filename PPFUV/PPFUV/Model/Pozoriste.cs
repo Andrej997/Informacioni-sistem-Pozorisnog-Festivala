@@ -17,5 +17,7 @@ namespace PPFUV.Model
         public string naziv { get; set; }
 
         public ICollection<Sala> sale { get; set; }
+
+        public OrgOdb orgOdb { get; set; }
     }
 }

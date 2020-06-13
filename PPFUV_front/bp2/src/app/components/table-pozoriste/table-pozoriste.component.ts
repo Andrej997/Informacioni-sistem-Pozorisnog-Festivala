@@ -4,6 +4,7 @@ import { Pozoriste } from 'src/app/entities/pozoriste/pozoriste';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Sala } from 'src/app/entities/sala/sala';
+import { OrgOdb } from 'src/app/entities/org-odb/org-odb';
 
 @Component({
   selector: 'app-table-pozoriste',
@@ -18,6 +19,8 @@ export class TablePozoristeComponent implements OnInit {
   idAddSala: number = 0;
 
   allSala: Array<Sala> = new Array<Sala>();
+
+  allOrgOdb: Array<OrgOdb> = new Array<OrgOdb>();
 
   error: boolean = false;
   errorText: string = "";
@@ -35,6 +38,16 @@ export class TablePozoristeComponent implements OnInit {
       err => {
         console.log(err)
       });
+
+      this.httpService.getAction("OrgOdb").toPromise()
+      .then(result => {
+        this.allOrgOdb = result as OrgOdb[];
+        // console.log(this.allOrgOdb)
+      })
+      .catch(
+        err => {
+          console.log(err)
+        });
 
     this.loadAllSala();
   }
@@ -111,6 +124,54 @@ export class TablePozoristeComponent implements OnInit {
             err => { 
               console.log(err);
             });
+        },
+        err => { 
+          console.log(err);
+        });
+    }
+    
+  }
+
+  idAddOrgOdb: number = 0;
+  errorOrgOdb: boolean = false;
+  addOrgOdb: boolean = false;
+
+  formOrgOdb = new FormGroup({
+    orgOdb: new FormControl("",[Validators.required]),
+  });
+
+  get fOrgOdb(){
+    return this.formOrgOdb.controls;
+  }
+
+  addOrgOdbBtn(event) {
+    this.idAddOrgOdb = Number.parseInt(event.target.id);
+    this.addOrgOdb = true;
+  }
+
+  submitOrgOdb() {
+    let pozoriste: Pozoriste = new Pozoriste();
+    for (let i = 0; i < this.allPozorista.length; i++) {
+      if (this.allPozorista[i].id == this.idAddOrgOdb) {
+        pozoriste = this.allPozorista[i];
+        break;
+      }
+    }
+    if (pozoriste.orgOdb != null) {
+      // console.log(">>??");
+      this.errorOrgOdb = true;
+      this.errorText = "Vec postoji organizacioni odbor!";
+    }
+    else {
+      this.errorOrgOdb = false;
+      for (let i = 0; i < this.allOrgOdb.length; i++) {
+        if (this.allOrgOdb[i].id == this.formOrgOdb.value.orgOdb) {
+          pozoriste.orgOdb = this.allOrgOdb[i];
+          break;
+        }
+      }
+      this.httpService.putAction('Pozoriste', pozoriste).subscribe (
+        res => { 
         },
         err => { 
           console.log(err);

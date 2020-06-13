@@ -7,7 +7,9 @@
                     <th scope="col">Naziv</th>
                     <th scope="col">Broj zaposlenih</th>
                     <th scope="col">Glavna sala</th>
+                    <th scope="col">Organizacioni odbor</th>
                     <th scope="col">Add sala</th>
+                    <th scope="col">Add organizacioni odbor</th>
                     <th scope="col">Change</th>
                     <th scope="col">Delete</th>
                 </tr>
@@ -21,9 +23,16 @@
                     <td>{{pozoriste.naziv}}</td>
                     <td>{{pozoriste.brZaposlenih}}</td>
                     <td>{{pozoriste.sale[0].id}}</td>
+                    <td><span *ngIf="pozoriste.orgOdb != null">{{pozoriste.orgOdb.id}}</span></td>
                     <td>
                         <button type="button" class="btn btn-success"
                                 id={{pozoriste.id}} (click)="addSalaBtn($event)">
+                            ADD
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success"
+                                id={{pozoriste.id}} (click)="addOrgOdbBtn($event)">
                             ADD
                         </button>
                     </td>
@@ -66,5 +75,30 @@
         </div>
 
         <button class="btn btn-primary" type="submit" [disabled]="!formSala.valid">Submit</button>
+    </form>
+</div>
+
+<div class="container" *ngIf="addOrgOdb">
+    <h3>Dodaj organizacioni odbor</h3>
+    <form [formGroup]="formOrgOdb" (ngSubmit)="submitOrgOdb()">
+
+        <div class="form-group">
+            <label for="orgOdb">Organizacioni odbor</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="orgOdb" #orgOdb formControlName="orgOdb" class="form-control">
+                    <option value="{{orgOdb1.id}}" *ngFor="let orgOdb1 of allOrgOdb" >
+                        {{orgOdb1.clanOrgOdbora1.ime}}/{{orgOdb1.clanOrgOdbora2.ime}}/{{orgOdb1.clanOrgOdbora3.ime}}
+                    </option>
+                </select>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="errorOrgOdb">
+                {{errorText}}
+            </div>
+            <div *ngIf="fOrgOdb.orgOdb.touched && fOrgOdb.orgOdb.invalid" class="alert alert-danger">
+                <div *ngIf="fOrgOdb.orgOdb.errors.required">Organizacioni odbor is required.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!formOrgOdb.valid">Submit</button>
     </form>
 </div>

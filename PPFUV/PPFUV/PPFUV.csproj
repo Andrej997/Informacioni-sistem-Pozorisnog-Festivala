@@ -43,6 +43,8 @@
     <Compile Remove="Migrations\20200613162728_Forma_key.Designer.cs" />
     <Compile Remove="Migrations\20200613162756_Forma_key1.cs" />
     <Compile Remove="Migrations\20200613162756_Forma_key1.Designer.cs" />
+    <Compile Remove="Migrations\20200613183423_Pozoriste_orgOdb.cs" />
+    <Compile Remove="Migrations\20200613183423_Pozoriste_orgOdb.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

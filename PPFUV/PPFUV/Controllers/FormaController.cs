@@ -95,6 +95,9 @@ namespace PPFUV.Controllers
                 return NotFound();
             }
 
+            var festival = await _context.Festivali.FirstOrDefaultAsync(x => x.forma.id == forma.id);
+            _context.Entry(festival).State = EntityState.Modified;
+
             _context.Entry(forma).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
 
