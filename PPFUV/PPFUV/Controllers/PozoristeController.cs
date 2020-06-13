@@ -68,6 +68,11 @@ namespace PPFUV.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdatePozoriste(Pozoriste pozoriste)
         {
+            foreach (var sala in pozoriste.sale)
+            {
+                _context.Entry(sala).State = EntityState.Unchanged;
+            }
+            
             _context.Entry(pozoriste).State = EntityState.Modified;
 
             try
@@ -95,13 +100,18 @@ namespace PPFUV.Controllers
         public async Task<ActionResult<Pozoriste>> DeletePozoriste(int id)
         {
             Pozoriste pozoriste = await _context.Pozorista
+                .Include(x => x.sale)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (pozoriste == null)
             {
                 return NotFound();
             }
-
+            foreach (var sala in pozoriste.sale)
+            {
+                sala.zauzeta = false;
+                _context.Entry(sala).State = EntityState.Modified;
+            }
             _context.Entry(pozoriste).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
 

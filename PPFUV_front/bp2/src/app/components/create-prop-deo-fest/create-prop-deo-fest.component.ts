@@ -3,6 +3,7 @@ import { PropDeoFest } from 'src/app/entities/prop-deo-fest/prop-deo-fest';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpServiceService } from 'src/app/services/http-service/http-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { IdChecker } from 'src/app/entities/IdChecker/id-checker';
 
 @Component({
   selector: 'app-create-prop-deo-fest',
@@ -24,10 +25,12 @@ export class CreatePropDeoFestComponent implements OnInit {
           .then(result => {
             this.propDeoFest = result as PropDeoFest;
             this.form.setValue({
+              id: this.propDeoFest.id,
               naziv: this.propDeoFest.naziv,
               // vremeOdrzavanja: this.propDeoFest.vremeOdrzavanja
             })
             this.change = true;
+            this.showSubmit = true;
           })
           .catch(
             err => {
@@ -37,6 +40,7 @@ export class CreatePropDeoFestComponent implements OnInit {
   }
 
   form = new FormGroup({
+    id: new FormControl(0, [Validators.required, Validators.max(10000), Validators.min(1)]),
     naziv: new FormControl("", [Validators.required, Validators.maxLength(30)]),
     // vremeOdrzavanja: new FormControl("",[Validators.required]),
   });
@@ -45,9 +49,33 @@ export class CreatePropDeoFestComponent implements OnInit {
     return this.form.controls;
   }
 
+  checkerActivated: boolean = false;
+  checkText: string = "";
+  showSubmit: boolean = false;
+  checkId() {
+    let intVal = Number.parseInt(this.form.value.id);
+    let type: number = 9;
+    let idChecker: IdChecker = new IdChecker(intVal, type);
+
+    this.httpService.postAction('IdChecker', 'Check', idChecker).subscribe(
+      res => { 
+        this.showSubmit = true;
+        this.checkerActivated = true;
+        this.checkText = "Id is free!"
+      },
+      err => { 
+        console.log(err);
+        this.showSubmit = false;
+        this.checkerActivated = true;
+        this.checkText = "Id is not free!"
+      }
+    );
+  }
+
   submit() {
     let propDeoFest: PropDeoFest = new PropDeoFest();
     propDeoFest.naziv = this.form.value.naziv;
+    propDeoFest.id = this.form.value.id;
     // propDeoFest.vremeOdrzavanja = this.form.value.vremeOdrzavanja;
 
     if (this.change == true) {

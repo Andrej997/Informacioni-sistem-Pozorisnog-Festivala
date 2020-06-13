@@ -5,6 +5,47 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200608182751_Initial_Pozoriste.cs" />
+    <Compile Remove="Migrations\20200608182751_Initial_Pozoriste.Designer.cs" />
+    <Compile Remove="Migrations\20200609170313_Forma.cs" />
+    <Compile Remove="Migrations\20200609170313_Forma.Designer.cs" />
+    <Compile Remove="Migrations\20200609194432_Festival.cs" />
+    <Compile Remove="Migrations\20200609194432_Festival.Designer.cs" />
+    <Compile Remove="Migrations\20200610072209_PropDeoFest.cs" />
+    <Compile Remove="Migrations\20200610072209_PropDeoFest.Designer.cs" />
+    <Compile Remove="Migrations\20200610074943_Sala.cs" />
+    <Compile Remove="Migrations\20200610074943_Sala.Designer.cs" />
+    <Compile Remove="Migrations\20200610075503_Predstava.cs" />
+    <Compile Remove="Migrations\20200610075503_Predstava.Designer.cs" />
+    <Compile Remove="Migrations\20200610075638_Ugovor.cs" />
+    <Compile Remove="Migrations\20200610075638_Ugovor.Designer.cs" />
+    <Compile Remove="Migrations\20200610075743_OrgOdb.cs" />
+    <Compile Remove="Migrations\20200610075743_OrgOdb.Designer.cs" />
+    <Compile Remove="Migrations\20200610075904_Nagrada.cs" />
+    <Compile Remove="Migrations\20200610075904_Nagrada.Designer.cs" />
+    <Compile Remove="Migrations\20200610090041_Radnik.cs" />
+    <Compile Remove="Migrations\20200610090041_Radnik.Designer.cs" />
+    <Compile Remove="Migrations\20200610092259_Svi_Radnici.cs" />
+    <Compile Remove="Migrations\20200610092259_Svi_Radnici.Designer.cs" />
+    <Compile Remove="Migrations\20200613092351_OrgOdb_clanoviOrgOdbora_selektor.cs" />
+    <Compile Remove="Migrations\20200613092351_OrgOdb_clanoviOrgOdbora_selektor.Designer.cs" />
+    <Compile Remove="Migrations\20200613110349_Selektor_organizacioniOdboriId.cs" />
+    <Compile Remove="Migrations\20200613110349_Selektor_organizacioniOdboriId.Designer.cs" />
+    <Compile Remove="Migrations\20200613111517_OrgOdb_clanoviIzmena.cs" />
+    <Compile Remove="Migrations\20200613111517_OrgOdb_clanoviIzmena.Designer.cs" />
+    <Compile Remove="Migrations\20200613133130_Pozoriste_sale.cs" />
+    <Compile Remove="Migrations\20200613133130_Pozoriste_sale.Designer.cs" />
+    <Compile Remove="Migrations\20200613134503_Sala_zauzeta.cs" />
+    <Compile Remove="Migrations\20200613134503_Sala_zauzeta.Designer.cs" />
+    <Compile Remove="Migrations\20200613162455_Forma_key.cs" />
+    <Compile Remove="Migrations\20200613162455_Forma_key.Designer.cs" />
+    <Compile Remove="Migrations\20200613162728_Forma_key.cs" />
+    <Compile Remove="Migrations\20200613162728_Forma_key.Designer.cs" />
+    <Compile Remove="Migrations\20200613162756_Forma_key1.cs" />
+    <Compile Remove="Migrations\20200613162756_Forma_key1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Controllers\PredstavaController.cs~RF20f66d0f.TMP" />
   </ItemGroup>
 

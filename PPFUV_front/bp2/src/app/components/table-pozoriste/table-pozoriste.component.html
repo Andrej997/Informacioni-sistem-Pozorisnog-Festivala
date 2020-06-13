@@ -7,6 +7,7 @@
                     <th scope="col">Naziv</th>
                     <th scope="col">Broj zaposlenih</th>
                     <th scope="col">Glavna sala</th>
+                    <th scope="col">Add sala</th>
                     <th scope="col">Change</th>
                     <th scope="col">Delete</th>
                 </tr>
@@ -20,6 +21,12 @@
                     <td>{{pozoriste.naziv}}</td>
                     <td>{{pozoriste.brZaposlenih}}</td>
                     <td>{{pozoriste.sale[0].id}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success"
+                                id={{pozoriste.id}} (click)="addSalaBtn($event)">
+                            ADD
+                        </button>
+                    </td>
                     <td>
                         <button type="button" class="btn btn-warning"
                                 id={{pozoriste.id}} (click)="changePozoriste($event)">
@@ -35,4 +42,29 @@
                 </tr>
             </tbody>
         </table>
+</div>
+
+<div class="container" *ngIf="addSala">
+    <h3>Dodaj salu</h3>
+    <form [formGroup]="formSala" (ngSubmit)="submitSala()">
+
+        <div class="form-group">
+            <label for="sala">Sala</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="sala" #sala formControlName="sala" class="form-control">
+                    <option value="{{sala1.id}}" *ngFor="let sala1 of allSala" >
+                        {{sala1.kapacPublike}} <span *ngIf="sala1.zauzeta">[zauzeta]</span>
+                    </option>
+                </select>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="error">
+                {{errorText}}
+            </div>
+            <div *ngIf="fSala.sala.touched && fSala.sala.invalid" class="alert alert-danger">
+                <div *ngIf="fSala.sala.errors.required">Sala is required.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!formSala.valid">Submit</button>
+    </form>
 </div>

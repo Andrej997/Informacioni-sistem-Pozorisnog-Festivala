@@ -7,6 +7,7 @@ import { Selektor } from 'src/app/entities/selektor/selektor';
 import { ClanOrgOdb } from 'src/app/entities/clan-org-odb/clan-org-odb';
 import { Glumac } from 'src/app/entities/glumac/glumac';
 import { Reditelj } from 'src/app/entities/reditelj/reditelj';
+import { IdChecker } from 'src/app/entities/IdChecker/id-checker';
 
 @Component({
   selector: 'app-create-radnik',
@@ -38,6 +39,7 @@ export class CreateRadnikComponent implements OnInit {
         .then(result => {
           this.selektor = result as Selektor;
           this.form.setValue({
+            id: this.selektor.id,
             ime: this.selektor.ime,
             prezime: this.selektor.prezime,
             tr: "",
@@ -45,6 +47,7 @@ export class CreateRadnikComponent implements OnInit {
           })
           this.izbor = 1;
           this.change = true;
+          this.showSubmit = true;
         })
         .catch(
           err => {
@@ -56,12 +59,14 @@ export class CreateRadnikComponent implements OnInit {
         .then(result => {
           this.clanOrgOdb = result as ClanOrgOdb;
           this.form.setValue({
+            id: this.clanOrgOdb.id,
             ime: this.clanOrgOdb.ime,
             prezime: this.clanOrgOdb.prezime,
             tr: "",
             brPredstava: 0,
           })
           this.change = true;
+          this.showSubmit = true;
           this.izbor = 2;
           this.form.controls["brPredstava"].setValidators([]);
           this.form.controls["brPredstava"].updateValueAndValidity(); 
@@ -76,12 +81,14 @@ export class CreateRadnikComponent implements OnInit {
         .then(result => {
           this.glumac = result as Glumac;
           this.form.setValue({
+            id: this.glumac.id,
             ime: this.glumac.ime,
             prezime: this.glumac.prezime,
             tr: "",
             brPredstava: this.glumac.brPredstava,
           })
           this.change = true;
+          this.showSubmit = true;
           this.izbor = 3;
         })
         .catch(
@@ -94,12 +101,14 @@ export class CreateRadnikComponent implements OnInit {
         .then(result => {
           this.reditelj = result as Reditelj;
           this.form.setValue({
+            id: this.reditelj.id,
             ime: this.reditelj.ime,
             prezime: this.reditelj.prezime,
             tr: "",
             brPredstava: this.reditelj.brPredstava,
           })
           this.change = true;
+          this.showSubmit = true;
           this.izbor = 4;
         })
         .catch(
@@ -112,12 +121,14 @@ export class CreateRadnikComponent implements OnInit {
         .then(result => {
           this.radnik = result as Radnik;
           this.form.setValue({
+            id: this.radnik.id,
             ime: this.radnik.ime,
             prezime: this.radnik.prezime,
             tr: "",
             brPredstava: 0,
           })
           this.change = true;
+          this.showSubmit = true;
           this.izbor = 5;
           this.form.controls["brPredstava"].setValidators([]);
           this.form.controls["brPredstava"].updateValueAndValidity(); 
@@ -132,6 +143,7 @@ export class CreateRadnikComponent implements OnInit {
   }
 
   form = new FormGroup({
+    id: new FormControl(0, [Validators.required, Validators.max(10000), Validators.min(1)]),
     ime: new FormControl("", [Validators.required, Validators.maxLength(30)]),
     prezime: new FormControl("", [Validators.required, Validators.maxLength(30)]),
     tr: new FormControl("",[Validators.required]),
@@ -142,6 +154,45 @@ export class CreateRadnikComponent implements OnInit {
     return this.form.controls;
   }
 
+  checkerActivated: boolean = false;
+  checkText: string = "";
+  showSubmit: boolean = false;
+  checkId() {
+    let intVal = Number.parseInt(this.form.value.id);
+    let type: number = 0;
+    if (this.izbor == 1) {
+      type = 13;
+    }
+    if (this.izbor == 2) {
+      type = 1;
+    }
+    if (this.izbor == 3) {
+      type = 4;
+    }
+    if (this.izbor == 4) {
+      type = 11;
+    }
+    if (this.izbor == 5) {
+      type = 10;
+    }
+    
+    let idChecker: IdChecker = new IdChecker(intVal, type);
+
+    this.httpService.postAction('IdChecker', 'Check', idChecker).subscribe(
+      res => { 
+        this.showSubmit = true;
+        this.checkerActivated = true;
+        this.checkText = "Id is free!"
+      },
+      err => { 
+        console.log(err);
+        this.showSubmit = false;
+        this.checkerActivated = true;
+        this.checkText = "Id is not free!"
+      }
+    );
+  }
+
   submit() {
     let selektor: Selektor = new Selektor();
     let clanOrgOdb: ClanOrgOdb = new ClanOrgOdb();
@@ -149,25 +200,30 @@ export class CreateRadnikComponent implements OnInit {
     let reditelj: Reditelj = new Reditelj();
     let radnik: Radnik = new Radnik();
     if (this.izbor == 1) {
+      selektor.id = this.form.value.id;
       selektor.ime = this.form.value.ime;
       selektor.prezime = this.form.value.prezime;
       selektor.brOgledanihSerija = this.form.value.brPredstava;
     }
     if (this.izbor == 2) {
+      clanOrgOdb.id = this.form.value.id;
       clanOrgOdb.ime = this.form.value.ime;
       clanOrgOdb.prezime = this.form.value.prezime;
     }
     if (this.izbor == 3) {
+      glumac.id = this.form.value.id;
       glumac.ime = this.form.value.ime;
       glumac.prezime = this.form.value.prezime;
       glumac.brPredstava = this.form.value.brPredstava;
     }
     if (this.izbor == 4) {
+      reditelj.id = this.form.value.id;
       reditelj.ime = this.form.value.ime;
       reditelj.prezime = this.form.value.prezime;
       reditelj.brPredstava = this.form.value.brPredstava;
     }
     if (this.izbor == 5) {
+      radnik.id = this.form.value.id;
       radnik.ime = this.form.value.ime;
       radnik.prezime = this.form.value.prezime;
     }

@@ -2,6 +2,23 @@
     <h3>Create sala</h3>
     <form [formGroup]="form" (ngSubmit)="submit()">
 
+        <div class="form-group" *ngIf="!change">
+            <label for="id">Id</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <input type="number" id="id" #id
+                    formControlName="id" class="form-control">
+                    <button class="btn btn-primary" type="button" (click)="checkId()">CHECK</button>
+            </div>
+            <div class="alert alert-info" role="alert" *ngIf="checkerActivated">
+                {{checkText}}
+            </div>
+            <div *ngIf="f.id.touched && f.id.invalid" class="alert alert-danger">
+                <div *ngIf="f.id.errors.required">Id is required.</div>
+                <div *ngIf="f.id.errors.max">Id must be lower that 10,000.</div>
+                <div *ngIf="f.id.errors.min">Id must be higher that 0.</div>
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="kapacPublike">Kapacitet publike</label>
             <div class="input-group mb-3 border border-secondary rounded">
@@ -14,6 +31,6 @@
             </div>
         </div>
 
-        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid" *ngIf="showSubmit">Submit</button>
     </form>
 </div>

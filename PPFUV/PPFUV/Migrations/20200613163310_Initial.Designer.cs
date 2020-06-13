@@ -10,8 +10,8 @@ using PPFUV.Data;
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    [Migration("20200613111517_OrgOdb_clanoviIzmena")]
-    partial class OrgOdb_clanoviIzmena
+    [Migration("20200613163310_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,9 +24,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.ClanOrgOdb", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("ime")
                         .HasColumnType("nvarchar(max)");
@@ -42,9 +40,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Festival", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("brojPozorista")
                         .HasColumnType("int");
@@ -85,9 +81,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Forma", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("naziv")
                         .HasColumnType("nvarchar(max)");
@@ -100,9 +94,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Glumac", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("brPredstava")
                         .HasColumnType("int");
@@ -121,9 +113,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Nagrada", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<double>("iznos")
                         .HasColumnType("float");
@@ -136,9 +126,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.OrgOdb", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int?>("clanOrgOdbora1id")
                         .HasColumnType("int");
@@ -168,9 +156,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Pozoriste", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("brZaposlenih")
                         .HasColumnType("int");
@@ -186,9 +172,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Predstava", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("naziv")
                         .HasColumnType("nvarchar(max)");
@@ -201,9 +185,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.PropDeoFest", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("naziv")
                         .HasColumnType("nvarchar(max)");
@@ -219,9 +201,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Radnik", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("ime")
                         .HasColumnType("nvarchar(max)");
@@ -237,9 +217,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Reditelj", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("brPredstava")
                         .HasColumnType("int");
@@ -258,14 +236,20 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Sala", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Pozoristeid")
+                        .HasColumnType("int");
 
                     b.Property<int>("kapacPublike")
                         .HasColumnType("int");
 
+                    b.Property<bool>("zauzeta")
+                        .HasColumnType("bit");
+
                     b.HasKey("id");
+
+                    b.HasIndex("Pozoristeid");
 
                     b.ToTable("Sale");
                 });
@@ -273,9 +257,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Selektor", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("brOgledanihSerija")
                         .HasColumnType("int");
@@ -297,9 +279,7 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Ugovor", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("datumSklapanja")
                         .HasColumnType("datetime2");
@@ -340,6 +320,13 @@ namespace PPFUV.Migrations
                     b.HasOne("PPFUV.Model.Selektor", "selektor")
                         .WithMany()
                         .HasForeignKey("selektorid");
+                });
+
+            modelBuilder.Entity("PPFUV.Model.Sala", b =>
+                {
+                    b.HasOne("PPFUV.Model.Pozoriste", null)
+                        .WithMany("sale")
+                        .HasForeignKey("Pozoristeid");
                 });
 #pragma warning restore 612, 618
         }

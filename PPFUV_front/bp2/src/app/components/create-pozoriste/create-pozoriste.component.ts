@@ -4,6 +4,7 @@ import { Pozoriste } from 'src/app/entities/pozoriste/pozoriste';
 import { HttpServiceService } from 'src/app/services/http-service/http-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Sala } from 'src/app/entities/sala/sala';
+import { IdChecker } from 'src/app/entities/IdChecker/id-checker';
 
 @Component({
   selector: 'app-create-pozoriste',
@@ -30,6 +31,7 @@ export class CreatePozoristeComponent implements OnInit {
           .then(result => {
             this.pozoriste = result as Pozoriste;
             this.form.setValue({
+              id: this.pozoriste.id,
               naziv: this.pozoriste.naziv,
               brZaposlenih: this.pozoriste.brZaposlenih,
               sala: this.pozoriste.sale[0].id
@@ -37,6 +39,7 @@ export class CreatePozoristeComponent implements OnInit {
             this.form.controls["sala"].setValidators([]);
             this.form.controls["sala"].updateValueAndValidity(); 
             this.change = true;
+            this.showSubmit = true;
           })
           .catch(
             err => {
@@ -55,6 +58,7 @@ export class CreatePozoristeComponent implements OnInit {
   }
 
   form = new FormGroup({
+    id: new FormControl(0, [Validators.required, Validators.max(10000), Validators.min(1)]),
     naziv: new FormControl("", [Validators.required, Validators.maxLength(50)]),
     brZaposlenih: new FormControl(0,[Validators.required, Validators.min(1)]),
     sala: new FormControl("",[Validators.required]),
@@ -64,13 +68,38 @@ export class CreatePozoristeComponent implements OnInit {
     return this.form.controls;
   }
 
+  checkerActivated: boolean = false;
+  checkText: string = "";
+  showSubmit: boolean = false;
+  checkId() {
+    let intVal = Number.parseInt(this.form.value.id);
+    let type: number = 7;
+    let idChecker: IdChecker = new IdChecker(intVal, type);
+
+    this.httpService.postAction('IdChecker', 'Check', idChecker).subscribe(
+      res => { 
+        this.showSubmit = true;
+        this.checkerActivated = true;
+        this.checkText = "Id is free!"
+      },
+      err => { 
+        console.log(err);
+        this.showSubmit = false;
+        this.checkerActivated = true;
+        this.checkText = "Id is not free!"
+      }
+    );
+  }
+
   submit() {
     let pozoriste: Pozoriste = new Pozoriste();
     pozoriste.naziv = this.form.value.naziv;
+    pozoriste.id = this.form.value.id;
     pozoriste.brZaposlenih = this.form.value.brZaposlenih;
 
     if (this.change == true) {
       pozoriste.id = this.pozoriste.id;
+      pozoriste.sale = this.pozoriste.sale;
       this.httpService.putAction('Pozoriste', pozoriste).subscribe (
         res => { 
           this.form.reset(); 

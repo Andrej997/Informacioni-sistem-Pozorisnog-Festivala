@@ -5,6 +5,7 @@ import { Pozoriste } from 'src/app/entities/pozoriste/pozoriste';
 import { Forma } from 'src/app/entities/forma/forma';
 import { HttpServiceService } from 'src/app/services/http-service/http-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IdChecker } from 'src/app/entities/IdChecker/id-checker';
 
 @Component({
   selector: 'app-create-festival',
@@ -29,6 +30,7 @@ export class CreateFestivalComponent implements OnInit {
           .then(result => {
             this.festival = result as Festival;
             this.form.setValue({
+              id: this.festival.id,
               pozoriste: this.festival.pozoriste.naziv,
               forma: this.festival.forma.naziv,
               naziv: this.festival.naziv,
@@ -44,6 +46,7 @@ export class CreateFestivalComponent implements OnInit {
             this.form.controls["forma"].setValidators([]);
             this.form.controls["forma"].updateValueAndValidity();
             this.change = true;
+            this.showSubmit = true;
           })
           .catch(
             err => {
@@ -74,6 +77,7 @@ export class CreateFestivalComponent implements OnInit {
   }
 
   form = new FormGroup({
+    id: new FormControl(0, [Validators.required, Validators.max(10000), Validators.min(1)]),
     pozoriste: new FormControl("", [Validators.required]),
     forma: new FormControl("", [Validators.required]),
     naziv: new FormControl("", [Validators.required, Validators.maxLength(30)]),
@@ -89,8 +93,32 @@ export class CreateFestivalComponent implements OnInit {
     return this.form.controls;
   }
 
+  checkerActivated: boolean = false;
+  checkText: string = "";
+  showSubmit: boolean = false;
+  checkId() {
+    let intVal = Number.parseInt(this.form.value.id);
+    let type: number = 2;
+    let idChecker: IdChecker = new IdChecker(intVal, type);
+
+    this.httpService.postAction('IdChecker', 'Check', idChecker).subscribe(
+      res => { 
+        this.showSubmit = true;
+        this.checkerActivated = true;
+        this.checkText = "Id is free!"
+      },
+      err => { 
+        console.log(err);
+        this.showSubmit = false;
+        this.checkerActivated = true;
+        this.checkText = "Id is not free!"
+      }
+    );
+  }
+
   submit() {
     let festival: Festival = new Festival();
+    festival.id = this.form.value.id;
     festival.naziv = this.form.value.naziv;
     for (let i = 0; i < this.allPozorista.length; ++i) {
       if (this.allPozorista[i].id == this.form.value.pozoriste) {

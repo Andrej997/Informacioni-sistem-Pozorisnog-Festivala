@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ClanOrgOdb } from 'src/app/entities/clan-org-odb/clan-org-odb';
 import { Selektor } from 'src/app/entities/selektor/selektor';
+import { IdChecker } from 'src/app/entities/IdChecker/id-checker';
 
 @Component({
   selector: 'app-create-org-odb',
@@ -29,12 +30,14 @@ export class CreateOrgOdbComponent implements OnInit {
           .then(result => {
             this.orgOdb = result as OrgOdb;
             this.form.setValue({
+              id: this.orgOdb.id,
               clanOrgOdb1: this.orgOdb.clanOrgOdbora1.id,
               clanOrgOdb2: this.orgOdb.clanOrgOdbora2.id,
               clanOrgOdb3: this.orgOdb.clanOrgOdbora3.id,
               selektor: this.orgOdb.selektor.id,
             })
             this.change = true;
+            this.showSubmit = true;
           })
           .catch(
             err => {
@@ -62,6 +65,7 @@ export class CreateOrgOdbComponent implements OnInit {
   }
 
   form = new FormGroup({
+    id: new FormControl(0, [Validators.required, Validators.max(10000), Validators.min(1)]),
     clanOrgOdb1: new FormControl("",[Validators.required]),
     clanOrgOdb2: new FormControl("",[Validators.required]),
     clanOrgOdb3: new FormControl("",[Validators.required]),
@@ -72,9 +76,32 @@ export class CreateOrgOdbComponent implements OnInit {
     return this.form.controls;
   }
 
+  checkerActivated: boolean = false;
+  checkText: string = "";
+  showSubmit: boolean = false;
+  checkId() {
+    let intVal = Number.parseInt(this.form.value.id);
+    let type: number = 6;
+    let idChecker: IdChecker = new IdChecker(intVal, type);
+
+    this.httpService.postAction('IdChecker', 'Check', idChecker).subscribe(
+      res => { 
+        this.showSubmit = true;
+        this.checkerActivated = true;
+        this.checkText = "Id is free!"
+      },
+      err => { 
+        console.log(err);
+        this.showSubmit = false;
+        this.checkerActivated = true;
+        this.checkText = "Id is not free!"
+      }
+    );
+  }
+
   submit() {
     let orgOdb: OrgOdb = new OrgOdb();
-    // orgOdb.svota = this.form.value.svota;
+    orgOdb.id = this.form.value.id;
 
     if (this.change == true) {
       orgOdb.id = this.orgOdb.id;
