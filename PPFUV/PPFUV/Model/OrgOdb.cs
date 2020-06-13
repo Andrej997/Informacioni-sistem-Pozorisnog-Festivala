@@ -19,5 +19,7 @@ namespace PPFUV.Model
         public ClanOrgOdb clanOrgOdbora3 { get; set; }
 
         public Selektor selektor { get; set; }
+
+        public ICollection<Pozoriste> pozorista { get; set; }
     }
 }

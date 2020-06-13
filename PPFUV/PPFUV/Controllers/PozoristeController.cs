@@ -25,7 +25,7 @@ namespace PPFUV.Controllers
         public async Task<ActionResult<IEnumerable<Pozoriste>>> GetPozorista() 
             => await _context.Pozorista
                 .Include(x => x.sale)
-                .Include(x => x.orgOdb)
+                //.Include(x => x.orgOdb)
                 .ToListAsync();
 
         // GET: api/Pozoriste/1
@@ -34,7 +34,7 @@ namespace PPFUV.Controllers
         {
             Pozoriste pozoriste = await _context.Pozorista
                 .Include(x => x.sale)
-                .Include(x => x.orgOdb)
+                //.Include(x => x.orgOdb)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (pozoriste == null)
@@ -78,7 +78,7 @@ namespace PPFUV.Controllers
             var festival = await _context.Festivali.FirstOrDefaultAsync(x => x.pozoriste.id == pozoriste.id);
             _context.Entry(festival).State = EntityState.Unchanged;
 
-            _context.Entry(pozoriste.orgOdb).State = EntityState.Unchanged;
+            //_context.Entry(pozoriste.orgOdb).State = EntityState.Unchanged;
 
             _context.Entry(pozoriste).State = EntityState.Modified;
 
@@ -124,7 +124,7 @@ namespace PPFUV.Controllers
             if (festival != null) return BadRequest();
             //_context.Entry(festival).State = EntityState.Modified;
 
-            _context.Entry(pozoriste.orgOdb).State = EntityState.Modified;
+            //_context.Entry(pozoriste.orgOdb).State = EntityState.Modified;
 
             _context.Entry(pozoriste).State = EntityState.Deleted;
             await _context.SaveChangesAsync();

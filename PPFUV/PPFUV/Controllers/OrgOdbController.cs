@@ -28,6 +28,7 @@ namespace PPFUV.Controllers
                     .Include(x => x.clanOrgOdbora2)
                     .Include(x => x.clanOrgOdbora3)
                     .Include(x => x.selektor)
+                    .Include(x => x.pozorista)
                     .ToListAsync();
 
         // GET: api/OrgOdb/1
@@ -39,6 +40,7 @@ namespace PPFUV.Controllers
                 .Include(x => x.clanOrgOdbora2)
                 .Include(x => x.clanOrgOdbora3)
                 .Include(x => x.selektor)
+                .Include(x => x.pozorista)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (model == null)
@@ -77,6 +79,17 @@ namespace PPFUV.Controllers
         [HttpPut]
         public async Task<ActionResult<OrgOdb>> UpdateOrgOdb(OrgOdb model)
         {
+            _context.Entry(model.clanOrgOdbora1).State = EntityState.Unchanged;
+            _context.Entry(model.clanOrgOdbora2).State = EntityState.Unchanged;
+            _context.Entry(model.clanOrgOdbora3).State = EntityState.Unchanged;
+            _context.Entry(model.selektor).State = EntityState.Unchanged;
+            
+
+            foreach (var pozoriste in model.pozorista)
+            {
+                _context.Entry(pozoriste).State = EntityState.Modified;
+            }
+
             _context.Entry(model).State = EntityState.Modified;
 
             try

@@ -28,16 +28,7 @@ export class TablePozoristeComponent implements OnInit {
   constructor(private httpService: HttpServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.httpService.getAction('Pozoriste')
-    .toPromise()
-    .then(result => {
-      this.allPozorista = result as Pozoriste[];
-      //console.log(this.allAeroplanes);
-    })
-    .catch(
-      err => {
-        console.log(err)
-      });
+    this.loadAllPozoriste();
 
       this.httpService.getAction("OrgOdb").toPromise()
       .then(result => {
@@ -61,6 +52,19 @@ export class TablePozoristeComponent implements OnInit {
         err => {
           console.log(err)
         });
+  }
+
+  loadAllPozoriste() {
+    this.httpService.getAction('Pozoriste')
+    .toPromise()
+    .then(result => {
+      this.allPozorista = result as Pozoriste[];
+      // console.log(this.allPozorista);
+    })
+    .catch(
+      err => {
+        console.log(err)
+      });
   }
 
   changePozoriste(event) {
@@ -157,27 +161,40 @@ export class TablePozoristeComponent implements OnInit {
         break;
       }
     }
-    if (pozoriste.orgOdb != null) {
-      // console.log(">>??");
-      this.errorOrgOdb = true;
-      this.errorText = "Vec postoji organizacioni odbor!";
-    }
-    else {
-      this.errorOrgOdb = false;
-      for (let i = 0; i < this.allOrgOdb.length; i++) {
-        if (this.allOrgOdb[i].id == this.formOrgOdb.value.orgOdb) {
+
+    let organizacioniOdbor: OrgOdb = new OrgOdb();
+    for (let i = 0; i < this.allOrgOdb.length; i++) {
+      for (let j = 0; j < this.allOrgOdb[i].pozorista.length; j++) {
+        if (this.allOrgOdb[i].pozorista[j].id == this.idAddOrgOdb) {
           pozoriste.orgOdb = this.allOrgOdb[i];
+          organizacioniOdbor = this.allOrgOdb[i];
           break;
         }
       }
-      this.httpService.putAction('Pozoriste', pozoriste).subscribe (
+    }
+    if (pozoriste.orgOdb != null) {
+        this.errorOrgOdb = true;
+        this.formOrgOdb.reset();
+        this.errorText = "Vec postoji organizacioni odbor!";
+    }
+    else {
+      for (let i = 0; i < this.allOrgOdb.length; i++) {
+        if (this.allOrgOdb[i].id == this.formOrgOdb.value.orgOdb) {
+          organizacioniOdbor = this.allOrgOdb[i];
+        }
+      }
+      // organizacioniOdbor.pozorista = new Array<Pozoriste>();
+      organizacioniOdbor.pozorista.push(pozoriste);
+      // console.log("Nema");
+      this.errorOrgOdb = false;
+      this.httpService.putAction('OrgOdb', organizacioniOdbor).subscribe (
         res => { 
+          this.loadAllPozoriste();
         },
         err => { 
           console.log(err);
         });
     }
-    
   }
 
 }

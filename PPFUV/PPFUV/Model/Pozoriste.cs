@@ -18,6 +18,6 @@ namespace PPFUV.Model
 
         public ICollection<Sala> sale { get; set; }
 
-        public OrgOdb orgOdb { get; set; }
+        //public OrgOdb orgOdb { get; set; }
     }
 }

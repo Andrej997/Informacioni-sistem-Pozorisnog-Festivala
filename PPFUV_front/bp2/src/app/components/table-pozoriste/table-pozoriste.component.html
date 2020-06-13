@@ -7,7 +7,7 @@
                     <th scope="col">Naziv</th>
                     <th scope="col">Broj zaposlenih</th>
                     <th scope="col">Glavna sala</th>
-                    <th scope="col">Organizacioni odbor</th>
+                    <!-- <th scope="col">Organizacioni odbor</th> -->
                     <th scope="col">Add sala</th>
                     <th scope="col">Add organizacioni odbor</th>
                     <th scope="col">Change</th>
@@ -23,7 +23,7 @@
                     <td>{{pozoriste.naziv}}</td>
                     <td>{{pozoriste.brZaposlenih}}</td>
                     <td>{{pozoriste.sale[0].id}}</td>
-                    <td><span *ngIf="pozoriste.orgOdb != null">{{pozoriste.orgOdb.id}}</span></td>
+                    <!-- <td><span *ngIf="pozoriste.orgOdb != null">{{pozoriste.orgOdb.id}}</span></td> -->
                     <td>
                         <button type="button" class="btn btn-success"
                                 id={{pozoriste.id}} (click)="addSalaBtn($event)">
