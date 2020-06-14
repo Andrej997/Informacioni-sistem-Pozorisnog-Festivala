@@ -15,5 +15,7 @@ namespace PPFUV.Model
         public int kapacPublike { get; set; }
 
         public bool zauzeta { get; set; }
+
+        public ICollection<Predstava> predstave { get; set; }
     }
 }

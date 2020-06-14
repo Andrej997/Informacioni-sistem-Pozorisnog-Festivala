@@ -1,5 +1,5 @@
 export class Ugovor {
     id: number;
-    datumSklapanja: Date;
+    // datumSklapanja: Date;
     svota: number;
 }

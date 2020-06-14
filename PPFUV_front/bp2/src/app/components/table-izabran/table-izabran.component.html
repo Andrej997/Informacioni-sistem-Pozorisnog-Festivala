@@ -1,0 +1,74 @@
+<app-loader *ngIf="loading"></app-loader>
+
+<div class="container" *ngIf="!loading">
+
+    <div class="alert alert-warning" role="alert">
+        Prvo odaberite ugovor pa onda kliknite na SIGN!
+    </div>
+    <div class="alert alert-warning" role="alert">
+        Prvo odaberite predstavu pa onda kliknite na ADD!
+    </div>
+
+    <h3>Izabrani</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">Organizacion odbor</th>
+                    <th scope="col">Pozoriste</th>
+                    <th scope="col">Sklopi ugovor</th>
+                    <th scope="col">Dodaj predstavu</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let izabran of allIzabrani">
+                    <td>{{izabran.orgOdb.id}}</td>
+                    <td>{{izabran.pozoriste.id}}</td>
+                    <td>
+                        <button type="button" class="btn btn-info" *ngIf="izabran.ugovor == null"
+                                id={{izabran.id}} (click)="signIzabran($event)">
+                            SIGN
+                        </button>
+                        <span *ngIf="izabran.ugovor != null">[${{izabran.ugovor.svota}}] {{izabran.datumSklapanja}}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success"
+                                id={{izabran.id}} (click)="addPredstava($event)">
+                            ADD
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                id={{izabran.id}} (click)="deleteIzabran($event)">
+                            DELETE
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <label for="ugovor">Ugovori</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="ugovor" (change)="onSelectUgovor($event.target.value)" class="form-control">
+                    <option value="{{ugovor.id}}" *ngFor="let ugovor of allUgovor">
+                    $ {{ugovor.svota}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="predstava">Predstave</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="predstava" (change)="onSelectPredstava($event.target.value)" class="form-control">
+                    <option value="{{predstava.id}}" *ngFor="let predstava of allPredstava">
+                        {{predstava.naziv}}
+                    </option>
+                </select>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="errorPredstava">
+                {{errorPredstavaText}}
+            </div>
+        </div>
+</div>

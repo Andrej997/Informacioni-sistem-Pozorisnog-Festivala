@@ -1,0 +1,33 @@
+<div class="container">
+    <h3>Festival {{festival.naziv}}</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-info">
+                <th scope="col">Naziv</th>
+                <th scope="col">Nagrada</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ucesnik of ucesnici">
+                <td>{{ucesnik.naziv}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning" *ngIf="!nagradaDodeljena"
+                            id={{ucesnik.id}} (click)="giveNagrada($event.target.id)">
+                        GIVE
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group" *ngIf="!nagradaDodeljena">
+        <label for="nagrada">Nagrade</label>
+        <div class="input-group mb-3 border border-secondary rounded">
+            <select id="nagrada" (change)="onSelectNagrada($event.target.value)" class="form-control">
+                <option value="{{nagrada.id}}" *ngFor="let nagrada of allNagrada">
+                    $ {{nagrada.iznos}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>

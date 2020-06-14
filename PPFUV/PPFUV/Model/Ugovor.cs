@@ -12,8 +12,6 @@ namespace PPFUV.Model
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
-        public DateTime datumSklapanja { get; set; }
-
         public double svota { get; set; }
     }
 }

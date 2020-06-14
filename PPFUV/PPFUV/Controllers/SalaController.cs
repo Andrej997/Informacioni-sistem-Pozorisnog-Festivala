@@ -24,6 +24,7 @@ namespace PPFUV.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Sala>>> GetSale()
             => await _context.Sale
+                        .Include(x => x.predstave)
                         .ToListAsync();
 
         // GET: api/Sala/1
@@ -31,6 +32,7 @@ namespace PPFUV.Controllers
         public async Task<ActionResult<Sala>> GetSala(int id)
         {
             Sala sala = await _context.Sale
+                .Include(x => x.predstave)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (sala == null)
@@ -62,6 +64,10 @@ namespace PPFUV.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateSala(Sala sala)
         {
+            foreach (var predstava in sala.predstave)
+            {
+                _context.Entry(predstava).State = EntityState.Unchanged;
+            }
             _context.Entry(sala).State = EntityState.Modified;
 
             try
@@ -94,6 +100,11 @@ namespace PPFUV.Controllers
             if (sala == null)
             {
                 return NotFound();
+            }
+
+            foreach (var predstava in sala.predstave)
+            {
+                _context.Entry(predstava).State = EntityState.Modified;
             }
 
             _context.Entry(sala).State = EntityState.Deleted;

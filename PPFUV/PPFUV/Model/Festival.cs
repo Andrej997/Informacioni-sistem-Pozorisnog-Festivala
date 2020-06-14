@@ -30,5 +30,7 @@ namespace PPFUV.Model
         public Forma forma { get; set; }
 
         public Pozoriste pozoriste { get; set; }
+
+        public ICollection<Izabran> ucesnici { get; set; }
     }
 }

@@ -27,6 +27,8 @@ import { TableRadnikComponent } from './components/table-radnik/table-radnik.com
 import { TableSalaComponent } from './components/table-sala/table-sala.component';
 import { TableUgovorComponent } from './components/table-ugovor/table-ugovor.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { TableIzabranComponent } from './components/table-izabran/table-izabran.component';
+import { TableUcesniciComponent } from './components/table-ucesnici/table-ucesnici.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { LoaderComponent } from './components/loader/loader.component';
     TableRadnikComponent,
     TableSalaComponent,
     TableUgovorComponent,
-    LoaderComponent
+    LoaderComponent,
+    TableIzabranComponent,
+    TableUcesniciComponent
   ],
   imports: [
     BrowserModule,

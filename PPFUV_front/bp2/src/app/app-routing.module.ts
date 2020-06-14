@@ -20,6 +20,8 @@ import { TableUgovorComponent } from './components/table-ugovor/table-ugovor.com
 import { TableOrgOdbComponent } from './components/table-org-odb/table-org-odb.component';
 import { TableNagradaComponent } from './components/table-nagrada/table-nagrada.component';
 import { TableRadnikComponent } from './components/table-radnik/table-radnik.component';
+import { TableIzabranComponent } from './components/table-izabran/table-izabran.component';
+import { TableUcesniciComponent } from './components/table-ucesnici/table-ucesnici.component';
 
 
 const routes: Routes = [
@@ -98,6 +100,17 @@ const routes: Routes = [
         ]
       },
     ]
+  },
+  {
+    path: "tableUcesnici",
+    children: [
+      { path: "",  component: TableUcesniciComponent},
+      { path: ":id",  component: TableUcesniciComponent},
+    ]
+  },
+  {
+    path: "tableIzabrani",
+    component: TableIzabranComponent
   },
   {
     path: "tablePozoriste",

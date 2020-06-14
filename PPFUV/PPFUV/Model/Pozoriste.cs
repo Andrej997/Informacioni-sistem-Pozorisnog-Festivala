@@ -21,5 +21,7 @@ namespace PPFUV.Model
         //public OrgOdb orgOdb { get; set; }
 
         //public ICollection<Izabran> izabrani { get; set; }
+
+        //public ICollection<PropDeoFest> propDeoFesta { get; set; }
     }
 }

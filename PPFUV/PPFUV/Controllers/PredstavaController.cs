@@ -23,13 +23,16 @@ namespace PPFUV.Controllers
         // GET: api/Predstava
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Predstava>>> GetPredstave()
-            => await _context.Predstave.ToListAsync();
+            => await _context.Predstave
+                .Include(x => x.izabran)
+                .ToListAsync();
 
         // GET: api/Predstava/1
         [HttpGet("{id}")]
         public async Task<ActionResult<Predstava>> GetPredstava(int id)
         {
             Predstava predstava = await _context.Predstave
+                .Include(x => x.izabran)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (predstava == null)
@@ -61,6 +64,7 @@ namespace PPFUV.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdatePredstava(Predstava predstava)
         {
+            _context.Entry(predstava.izabran).State = EntityState.Unchanged;
             _context.Entry(predstava).State = EntityState.Modified;
 
             try
@@ -94,6 +98,8 @@ namespace PPFUV.Controllers
             {
                 return NotFound();
             }
+
+            _context.Entry(predstava.izabran).State = EntityState.Unchanged;
 
             _context.Entry(predstava).State = EntityState.Deleted;
             await _context.SaveChangesAsync();

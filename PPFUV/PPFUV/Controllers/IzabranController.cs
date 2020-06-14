@@ -26,6 +26,9 @@ namespace PPFUV.Controllers
             => await _context.Izabrani
                     .Include(x => x.OrgOdb)
                     .Include(x => x.Pozoriste)
+                        .ThenInclude(x => x.sale)
+                    .Include(x => x.ugovor)
+                    .Include(x => x.nagrada)
                     .ToListAsync();
 
         // GET: api/Izabran/1
@@ -35,6 +38,9 @@ namespace PPFUV.Controllers
             Izabran model = await _context.Izabrani
                 .Include(x => x.OrgOdb)
                 .Include(x => x.Pozoriste)
+                    .ThenInclude(x => x.sale)
+                .Include(x => x.ugovor)
+                .Include(x => x.nagrada)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (model == null)
@@ -54,6 +60,8 @@ namespace PPFUV.Controllers
 
             if (ValidateModel(model, true))
             {
+                _context.Entry(model.nagrada).State = EntityState.Unchanged;
+                _context.Entry(model.ugovor).State = EntityState.Unchanged;
                 _context.Entry(model.OrgOdb).State = EntityState.Unchanged;
                 _context.Entry(model.Pozoriste).State = EntityState.Unchanged;
                 _context.Izabrani.Add(model);
@@ -68,6 +76,12 @@ namespace PPFUV.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateIzabran(Izabran model)
         {
+            _context.Entry(model.nagrada).State = EntityState.Unchanged;
+            _context.Entry(model.OrgOdb).State = EntityState.Unchanged;
+            _context.Entry(model.Pozoriste).State = EntityState.Unchanged;
+            _context.Entry(model.ugovor).State = EntityState.Unchanged;
+
+            model.datumSklapanja = DateTime.Now;
             _context.Entry(model).State = EntityState.Modified;
 
             try
@@ -95,12 +109,19 @@ namespace PPFUV.Controllers
         public async Task<ActionResult<Izabran>> DeletIzabran(int id)
         {
             Izabran model = await _context.Izabrani
+                .Include(x => x.OrgOdb)
+                .Include(x => x.Pozoriste)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (model == null)
             {
                 return NotFound();
             }
+
+            _context.Entry(model.nagrada).State = EntityState.Modified;
+            _context.Entry(model.ugovor).State = EntityState.Modified;
+            _context.Entry(model.OrgOdb).State = EntityState.Modified;
+            _context.Entry(model.Pozoriste).State = EntityState.Modified;
 
             _context.Entry(model).State = EntityState.Deleted;
             await _context.SaveChangesAsync();

@@ -15,6 +15,7 @@
                     <th scope="col">Max broj ucesnika</th>
                     <th scope="col">Change</th>
                     <th scope="col">Delete</th>
+                    <th scope="col">Ucesnici</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +43,12 @@
                         <button type="button" class="btn btn-danger"
                                 id={{festival.id}} (click)="deleteFestival($event)">
                             DELETE
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info"
+                                id={{festival.id}} routerLink="/tableUcesnici/{{festival.id}}" >
+                            SEE
                         </button>
                     </td>
                 </tr>

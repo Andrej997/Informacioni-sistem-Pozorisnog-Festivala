@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200614143011_Izabran_nagrada")]
+    partial class Izabran_nagrada
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,20 +219,10 @@ namespace PPFUV.Migrations
                     b.Property<int>("id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Salaid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("izabranid")
-                        .HasColumnType("int");
-
                     b.Property<string>("naziv")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("Salaid");
-
-                    b.HasIndex("izabranid");
 
                     b.ToTable("Predstave");
                 });
@@ -400,17 +392,6 @@ namespace PPFUV.Migrations
                     b.HasOne("PPFUV.Model.OrgOdb", null)
                         .WithMany("pozorista")
                         .HasForeignKey("OrgOdbid");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Predstava", b =>
-                {
-                    b.HasOne("PPFUV.Model.Sala", null)
-                        .WithMany("predstave")
-                        .HasForeignKey("Salaid");
-
-                    b.HasOne("PPFUV.Model.Izabran", "izabran")
-                        .WithMany()
-                        .HasForeignKey("izabranid");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Sala", b =>

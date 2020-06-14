@@ -23,8 +23,14 @@ namespace PPFUV.Controllers
         // GET: api/Festival
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Festival>>> GetFestivale()
-            => await _context.Festivali.Include(pozoriste => pozoriste.pozoriste)
-                .Include(forma => forma.forma).ToListAsync();
+            => await _context.Festivali
+                .Include(pozoriste => pozoriste.pozoriste)
+                .Include(forma => forma.forma)
+                .Include(x => x.ucesnici)
+                    .ThenInclude(x => x.Pozoriste)
+                .Include(x => x.ucesnici)
+                    .ThenInclude(x => x.nagrada)
+                .ToListAsync();
 
         // GET: api/Festival/1
         [HttpGet("{id}")]
@@ -33,6 +39,10 @@ namespace PPFUV.Controllers
             Festival festival = await _context.Festivali
                 .Include(pozoriste => pozoriste.pozoriste)
                 .Include(forma => forma.forma)
+                .Include(x => x.ucesnici)
+                    .ThenInclude(x => x.Pozoriste)
+                .Include(x => x.ucesnici)
+                    .ThenInclude(x => x.nagrada)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (festival == null)
@@ -66,6 +76,10 @@ namespace PPFUV.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateFestival(Festival festival)
         {
+            foreach (var ucesnik in festival.ucesnici)
+            {
+                _context.Entry(ucesnik).State = EntityState.Unchanged;
+            }
             _context.Entry(festival.pozoriste).State = EntityState.Unchanged;
             _context.Entry(festival.forma).State = EntityState.Unchanged;
             _context.Entry(festival).State = EntityState.Modified;

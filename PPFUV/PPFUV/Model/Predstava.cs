@@ -13,5 +13,9 @@ namespace PPFUV.Model
         public int id { get; set; }
 
         public string naziv { get; set; }
+
+        public Izabran izabran { get; set; }
+
+        //public Reditelj reditelj { get; set; }
     }
 }

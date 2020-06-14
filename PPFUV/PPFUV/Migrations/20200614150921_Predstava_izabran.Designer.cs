@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200614150921_Predstava_izabran")]
+    partial class Predstava_izabran
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,9 +219,6 @@ namespace PPFUV.Migrations
                     b.Property<int>("id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Salaid")
-                        .HasColumnType("int");
-
                     b.Property<int?>("izabranid")
                         .HasColumnType("int");
 
@@ -227,8 +226,6 @@ namespace PPFUV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("Salaid");
 
                     b.HasIndex("izabranid");
 
@@ -404,10 +401,6 @@ namespace PPFUV.Migrations
 
             modelBuilder.Entity("PPFUV.Model.Predstava", b =>
                 {
-                    b.HasOne("PPFUV.Model.Sala", null)
-                        .WithMany("predstave")
-                        .HasForeignKey("Salaid");
-
                     b.HasOne("PPFUV.Model.Izabran", "izabran")
                         .WithMany()
                         .HasForeignKey("izabranid");
