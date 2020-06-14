@@ -29,6 +29,7 @@ namespace PPFUV.Controllers
                     .Include(x => x.clanOrgOdbora3)
                     .Include(x => x.selektor)
                     .Include(x => x.pozorista)
+                    //.Include(x => x.izabrani)
                     .ToListAsync();
 
         // GET: api/OrgOdb/1
@@ -41,6 +42,7 @@ namespace PPFUV.Controllers
                 .Include(x => x.clanOrgOdbora3)
                 .Include(x => x.selektor)
                 .Include(x => x.pozorista)
+                //.Include(x => x.izabrani)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (model == null)
@@ -83,7 +85,12 @@ namespace PPFUV.Controllers
             _context.Entry(model.clanOrgOdbora2).State = EntityState.Unchanged;
             _context.Entry(model.clanOrgOdbora3).State = EntityState.Unchanged;
             _context.Entry(model.selektor).State = EntityState.Unchanged;
-            
+
+            //foreach (var izabran in model.izabrani)
+            //{
+            //    _context.Entry(izabran).State = EntityState.Unchanged;
+            //}
+
 
             foreach (var pozoriste in model.pozorista)
             {

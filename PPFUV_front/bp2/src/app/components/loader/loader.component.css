@@ -1,0 +1,14 @@
+#bern {
+    width:112px;
+    height:356px;
+    margin:auto;  
+    background:url(https://i.imgur.com/ifk0SLH.png) repeat-x;
+    animation:walk .8s steps(6) infinite;
+    position:relative;
+    bottom:34px;
+  }
+  
+  @keyframes walk {
+    0% { background-position:0 }
+    100% { background-position:-672px }
+  }

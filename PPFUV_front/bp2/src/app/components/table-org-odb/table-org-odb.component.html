@@ -8,6 +8,7 @@
                     <th scope="col">Clan 2</th>
                     <th scope="col">Clan 3</th>
                     <th scope="col">Selektor</th>
+                    <th scope="col">Add pozoriste</th>
                     <!-- <th scope="col">Change</th> -->
                     <th scope="col">Delete</th>
                 </tr>
@@ -30,6 +31,12 @@
                     <th scope="row">
                         {{orgOdb.selektor.ime}} {{orgOdb.selektor.prezime}}
                     </th>
+                    <td>
+                        <button type="button" class="btn btn-success"
+                                id={{orgOdb.id}} (click)="addUcesnikBtn($event)">
+                            ADD
+                        </button>
+                    </td>
                     <!-- <td>
                         <button type="button" class="btn btn-warning"
                                 id={{orgOdb.id}} (click)="changeOrgOdb($event)">
@@ -45,4 +52,29 @@
                 </tr>
             </tbody>
         </table>
+</div>
+
+<div class="container" *ngIf="addUcesnik">
+    <h3>Dodaj ucesnika</h3>
+    <form [formGroup]="formUcesnik" (ngSubmit)="submitUcesnik()">
+
+        <div class="form-group">
+            <label for="ucesnik">Pozoriste</label>
+            <div class="input-group mb-3 border border-secondary rounded">
+                <select id="ucesnik" #ucesnik formControlName="ucesnik" class="form-control">
+                    <option value="{{ucesnik1.id}}" *ngFor="let ucesnik1 of allPozorista" >
+                        {{ucesnik1.naziv}}
+                    </option>
+                </select>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="errorUcesnik">
+                {{errorText}}
+            </div>
+            <div *ngIf="fUcesnik.ucesnik.touched && fUcesnik.ucesnik.invalid" class="alert alert-danger">
+                <div *ngIf="fUcesnik.ucesnik.errors.required">Pozoriste is required.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!formUcesnik.valid">Submit</button>
+    </form>
 </div>

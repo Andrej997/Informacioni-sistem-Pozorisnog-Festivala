@@ -26,5 +26,6 @@ namespace PPFUV.Data
         public DbSet<ClanOrgOdb> ClanOrgOdbora { get; set; }
         public DbSet<Glumac> Glumci { get; set; }
         public DbSet<Reditelj> Reditelji { get; set; }
+        public DbSet<Izabran> Izabrani { get; set; }
     }
 }

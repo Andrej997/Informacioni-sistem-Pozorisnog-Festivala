@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200614061058_OrgOdb_ucesnici")]
+    partial class OrgOdb_ucesnici
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,28 +110,6 @@ namespace PPFUV.Migrations
                     b.ToTable("Glumci");
                 });
 
-            modelBuilder.Entity("PPFUV.Model.Izabran", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("OrgOdbid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Pozoristeid")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("OrgOdbid");
-
-                    b.HasIndex("Pozoristeid");
-
-                    b.ToTable("Izabrani");
-                });
-
             modelBuilder.Entity("PPFUV.Model.Nagrada", b =>
                 {
                     b.Property<int>("id")
@@ -181,6 +161,9 @@ namespace PPFUV.Migrations
                     b.Property<int?>("OrgOdbid")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OrgOdbid1")
+                        .HasColumnType("int");
+
                     b.Property<int>("brZaposlenih")
                         .HasColumnType("int");
 
@@ -190,6 +173,8 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("OrgOdbid");
+
+                    b.HasIndex("OrgOdbid1");
 
                     b.ToTable("Pozorista");
                 });
@@ -328,17 +313,6 @@ namespace PPFUV.Migrations
                         .HasForeignKey("pozoristeid");
                 });
 
-            modelBuilder.Entity("PPFUV.Model.Izabran", b =>
-                {
-                    b.HasOne("PPFUV.Model.OrgOdb", "OrgOdb")
-                        .WithMany()
-                        .HasForeignKey("OrgOdbid");
-
-                    b.HasOne("PPFUV.Model.Pozoriste", "Pozoriste")
-                        .WithMany()
-                        .HasForeignKey("Pozoristeid");
-                });
-
             modelBuilder.Entity("PPFUV.Model.OrgOdb", b =>
                 {
                     b.HasOne("PPFUV.Model.ClanOrgOdb", "clanOrgOdbora1")
@@ -363,6 +337,10 @@ namespace PPFUV.Migrations
                     b.HasOne("PPFUV.Model.OrgOdb", null)
                         .WithMany("pozorista")
                         .HasForeignKey("OrgOdbid");
+
+                    b.HasOne("PPFUV.Model.OrgOdb", null)
+                        .WithMany("ucesnici")
+                        .HasForeignKey("OrgOdbid1");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Sala", b =>

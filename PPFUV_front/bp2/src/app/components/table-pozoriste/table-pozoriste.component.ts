@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Sala } from 'src/app/entities/sala/sala';
 import { OrgOdb } from 'src/app/entities/org-odb/org-odb';
+import { Festival } from 'src/app/entities/festival/festival';
 
 @Component({
   selector: 'app-table-pozoriste',
@@ -12,6 +13,7 @@ import { OrgOdb } from 'src/app/entities/org-odb/org-odb';
   styleUrls: ['./table-pozoriste.component.css']
 })
 export class TablePozoristeComponent implements OnInit {
+  loading: boolean = false;
 
   allPozorista: Array<Pozoriste> = new Array<Pozoriste>();
 
@@ -22,49 +24,76 @@ export class TablePozoristeComponent implements OnInit {
 
   allOrgOdb: Array<OrgOdb> = new Array<OrgOdb>();
 
+  allFestival: Array<Festival> = new Array<Festival>();
+
   error: boolean = false;
   errorText: string = "";
 
   constructor(private httpService: HttpServiceService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.loadAllPozoriste();
 
       this.httpService.getAction("OrgOdb").toPromise()
       .then(result => {
         this.allOrgOdb = result as OrgOdb[];
         // console.log(this.allOrgOdb)
+        this.loading = false;
       })
       .catch(
         err => {
+          this.loading = false;
           console.log(err)
         });
 
     this.loadAllSala();
+    this.loadAllFestival();
   }
 
   loadAllSala() {
+    this.loading = true;
     this.httpService.getAction("Sala").toPromise()
       .then(result => {
         this.allSala = result as Sala[];
+        this.loading = false;
       })
       .catch(
         err => {
+          this.loading = false;
           console.log(err)
         });
   }
 
   loadAllPozoriste() {
+    this.loading = true;
     this.httpService.getAction('Pozoriste')
     .toPromise()
     .then(result => {
+      this.loading = false;
       this.allPozorista = result as Pozoriste[];
       // console.log(this.allPozorista);
     })
     .catch(
       err => {
+        this.loading = false;
         console.log(err)
       });
+  }
+
+  loadAllFestival() {
+    this.loading = true;
+    this.httpService.getAction("Festival").toPromise()
+      .then(result => {
+        this.allFestival = result as Festival[];
+        // console.log(this.allFestival)
+        this.loading = false;
+      })
+      .catch(
+        err => {
+          this.loading = false;
+          console.log(err)
+        });
   }
 
   changePozoriste(event) {
@@ -154,6 +183,19 @@ export class TablePozoristeComponent implements OnInit {
   }
 
   submitOrgOdb() {
+    let foundPozoriste: boolean = false;
+    for (let i = 0; i < this.allFestival.length; i++) {
+      if (this.allFestival[i].pozoriste.id == this.idAddOrgOdb) {
+        foundPozoriste = true;
+        break;
+      }
+    }
+    if (foundPozoriste == false) {
+      this.errorOrgOdb = true;
+      this.formOrgOdb.reset();
+      this.errorText = "To pozoriste nema festival, stoga ne moze da odabere organizacioni odbor!";
+      return;
+    }
     let pozoriste: Pozoriste = new Pozoriste();
     for (let i = 0; i < this.allPozorista.length; i++) {
       if (this.allPozorista[i].id == this.idAddOrgOdb) {

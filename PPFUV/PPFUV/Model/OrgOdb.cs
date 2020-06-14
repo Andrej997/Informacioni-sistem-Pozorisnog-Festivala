@@ -21,5 +21,7 @@ namespace PPFUV.Model
         public Selektor selektor { get; set; }
 
         public ICollection<Pozoriste> pozorista { get; set; }
+
+        //public ICollection<Izabran> izabrani { get; set; }
     }
 }

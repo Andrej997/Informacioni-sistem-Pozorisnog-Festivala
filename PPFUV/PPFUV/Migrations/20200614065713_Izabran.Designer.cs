@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200614065713_Izabran")]
+    partial class Izabran
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,11 +333,11 @@ namespace PPFUV.Migrations
             modelBuilder.Entity("PPFUV.Model.Izabran", b =>
                 {
                     b.HasOne("PPFUV.Model.OrgOdb", "OrgOdb")
-                        .WithMany()
+                        .WithMany("izabrani")
                         .HasForeignKey("OrgOdbid");
 
                     b.HasOne("PPFUV.Model.Pozoriste", "Pozoriste")
-                        .WithMany()
+                        .WithMany("izabrani")
                         .HasForeignKey("Pozoristeid");
                 });
 

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200614065009_Ucesnik")]
+    partial class Ucesnik
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,28 +108,6 @@ namespace PPFUV.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Glumci");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Izabran", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("OrgOdbid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Pozoristeid")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("OrgOdbid");
-
-                    b.HasIndex("Pozoristeid");
-
-                    b.ToTable("Izabrani");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Nagrada", b =>
@@ -301,6 +281,28 @@ namespace PPFUV.Migrations
                     b.ToTable("Selektori");
                 });
 
+            modelBuilder.Entity("PPFUV.Model.Ucesnik", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OrgOdbid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Pozoristeid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("OrgOdbid");
+
+                    b.HasIndex("Pozoristeid");
+
+                    b.ToTable("Ucesnici");
+                });
+
             modelBuilder.Entity("PPFUV.Model.Ugovor", b =>
                 {
                     b.Property<int>("id")
@@ -326,17 +328,6 @@ namespace PPFUV.Migrations
                     b.HasOne("PPFUV.Model.Pozoriste", "pozoriste")
                         .WithMany()
                         .HasForeignKey("pozoristeid");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Izabran", b =>
-                {
-                    b.HasOne("PPFUV.Model.OrgOdb", "OrgOdb")
-                        .WithMany()
-                        .HasForeignKey("OrgOdbid");
-
-                    b.HasOne("PPFUV.Model.Pozoriste", "Pozoriste")
-                        .WithMany()
-                        .HasForeignKey("Pozoristeid");
                 });
 
             modelBuilder.Entity("PPFUV.Model.OrgOdb", b =>
@@ -369,6 +360,17 @@ namespace PPFUV.Migrations
                 {
                     b.HasOne("PPFUV.Model.Pozoriste", null)
                         .WithMany("sale")
+                        .HasForeignKey("Pozoristeid");
+                });
+
+            modelBuilder.Entity("PPFUV.Model.Ucesnik", b =>
+                {
+                    b.HasOne("PPFUV.Model.OrgOdb", "OrgOdb")
+                        .WithMany("ucesnici")
+                        .HasForeignKey("OrgOdbid");
+
+                    b.HasOne("PPFUV.Model.Pozoriste", "Pozoriste")
+                        .WithMany("ucesnici")
                         .HasForeignKey("Pozoristeid");
                 });
 #pragma warning restore 612, 618

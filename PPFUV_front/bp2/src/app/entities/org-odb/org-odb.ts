@@ -1,6 +1,7 @@
 import { ClanOrgOdb } from '../clan-org-odb/clan-org-odb';
 import { Selektor } from '../selektor/selektor';
 import { Pozoriste } from '../pozoriste/pozoriste';
+import { Izabran } from '../izabran/izabran';
 
 export class OrgOdb {
     id: number;
@@ -12,4 +13,6 @@ export class OrgOdb {
     selektor: Selektor;
 
     pozorista: Array<Pozoriste>;
+
+    // izabrani: Array<Izabran>;
 }

@@ -19,5 +19,7 @@ namespace PPFUV.Model
         public ICollection<Sala> sale { get; set; }
 
         //public OrgOdb orgOdb { get; set; }
+
+        //public ICollection<Izabran> izabrani { get; set; }
     }
 }

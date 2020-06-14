@@ -26,6 +26,7 @@ import { TablePropDeoFestComponent } from './components/table-prop-deo-fest/tabl
 import { TableRadnikComponent } from './components/table-radnik/table-radnik.component';
 import { TableSalaComponent } from './components/table-sala/table-sala.component';
 import { TableUgovorComponent } from './components/table-ugovor/table-ugovor.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { TableUgovorComponent } from './components/table-ugovor/table-ugovor.com
     TablePropDeoFestComponent,
     TableRadnikComponent,
     TableSalaComponent,
-    TableUgovorComponent
+    TableUgovorComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
