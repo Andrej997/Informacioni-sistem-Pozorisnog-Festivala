@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PPFUV.Data;
 
 namespace PPFUV.Migrations
 {
     [DbContext(typeof(PPFUVContext))]
-    partial class PPFUVContextModelSnapshot : ModelSnapshot
+    [Migration("20200614185009_ManyToMany")]
+    partial class ManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,15 +102,10 @@ namespace PPFUV.Migrations
                     b.Property<string>("ime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("nagradaid")
-                        .HasColumnType("int");
-
                     b.Property<string>("prezime")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("nagradaid");
 
                     b.ToTable("Glumci");
                 });
@@ -400,13 +397,6 @@ namespace PPFUV.Migrations
                     b.HasOne("PPFUV.Model.Pozoriste", "pozoriste")
                         .WithMany()
                         .HasForeignKey("pozoristeid");
-                });
-
-            modelBuilder.Entity("PPFUV.Model.Glumac", b =>
-                {
-                    b.HasOne("PPFUV.Model.Nagrada", "nagrada")
-                        .WithMany()
-                        .HasForeignKey("nagradaid");
                 });
 
             modelBuilder.Entity("PPFUV.Model.Glumi", b =>

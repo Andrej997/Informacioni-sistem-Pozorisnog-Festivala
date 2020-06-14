@@ -23,13 +23,16 @@ namespace PPFUV.Controllers
         // GET: api/Glumac
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Glumac>>> GetGlumce()
-            => await _context.Glumci.ToListAsync();
+            => await _context.Glumci
+                .Include(x => x.nagrada)
+                .ToListAsync();
 
         // GET: api/Glumac/1
         [HttpGet("{id}")]
         public async Task<ActionResult<Glumac>> GetGlumac(int id)
         {
             Glumac model = await _context.Glumci
+                .Include(x => x.nagrada)
                 .FirstOrDefaultAsync(i => i.id == id);
 
             if (model == null)
@@ -61,6 +64,7 @@ namespace PPFUV.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateGlumac(Glumac model)
         {
+            _context.Entry(model.nagrada).State = EntityState.Unchanged;
             _context.Entry(model).State = EntityState.Modified;
 
             try
@@ -94,7 +98,7 @@ namespace PPFUV.Controllers
             {
                 return NotFound();
             }
-
+            _context.Entry(model.nagrada).State = EntityState.Modified;
             _context.Entry(model).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
 

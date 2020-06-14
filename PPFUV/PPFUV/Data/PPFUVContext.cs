@@ -27,5 +27,7 @@ namespace PPFUV.Data
         public DbSet<Glumac> Glumci { get; set; }
         public DbSet<Reditelj> Reditelji { get; set; }
         public DbSet<Izabran> Izabrani { get; set; }
+        public DbSet<Realizuje> Realizuju { get; set; }
+        public DbSet<Glumi> Glume { get; set; }
     }
 }

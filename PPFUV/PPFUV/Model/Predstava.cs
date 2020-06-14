@@ -16,6 +16,8 @@ namespace PPFUV.Model
 
         public Izabran izabran { get; set; }
 
-        //public Reditelj reditelj { get; set; }
+        //public ICollection<Reditelj> reditelji { get; set; }
+
+        //public ICollection<Glumac> glumci { get; set; }
     }
 }

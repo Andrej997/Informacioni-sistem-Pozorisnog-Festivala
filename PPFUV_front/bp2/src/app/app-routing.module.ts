@@ -22,6 +22,7 @@ import { TableNagradaComponent } from './components/table-nagrada/table-nagrada.
 import { TableRadnikComponent } from './components/table-radnik/table-radnik.component';
 import { TableIzabranComponent } from './components/table-izabran/table-izabran.component';
 import { TableUcesniciComponent } from './components/table-ucesnici/table-ucesnici.component';
+import { TableGlumeComponent } from './components/table-glume/table-glume.component';
 
 
 const routes: Routes = [
@@ -111,6 +112,10 @@ const routes: Routes = [
   {
     path: "tableIzabrani",
     component: TableIzabranComponent
+  },
+  {
+    path: "tableGlume",
+    component: TableGlumeComponent
   },
   {
     path: "tablePozoriste",

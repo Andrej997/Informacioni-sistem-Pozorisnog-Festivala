@@ -25,6 +25,8 @@ namespace PPFUV.Controllers
         public async Task<ActionResult<IEnumerable<Predstava>>> GetPredstave()
             => await _context.Predstave
                 .Include(x => x.izabran)
+                //.Include(x => x.reditelji)
+                //.Include(x => x.glumci)
                 .ToListAsync();
 
         // GET: api/Predstava/1
@@ -32,6 +34,8 @@ namespace PPFUV.Controllers
         public async Task<ActionResult<Predstava>> GetPredstava(int id)
         {
             Predstava predstava = await _context.Predstave
+                //.Include(x => x.reditelji)
+                //.Include(x => x.glumci)
                 .Include(x => x.izabran)
                 .FirstOrDefaultAsync(i => i.id == id);
 
@@ -64,6 +68,14 @@ namespace PPFUV.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdatePredstava(Predstava predstava)
         {
+            //foreach (var reditelj in predstava.reditelji)
+            //{
+            //    _context.Entry(reditelj).State = EntityState.Unchanged;
+            //}
+            //foreach (var glumac in predstava.glumci)
+            //{
+            //    _context.Entry(glumac).State = EntityState.Unchanged;
+            //}
             _context.Entry(predstava.izabran).State = EntityState.Unchanged;
             _context.Entry(predstava).State = EntityState.Modified;
 
@@ -98,6 +110,15 @@ namespace PPFUV.Controllers
             {
                 return NotFound();
             }
+
+            //foreach (var reditelj in predstava.reditelji)
+            //{
+            //    _context.Entry(reditelj).State = EntityState.Unchanged;
+            //}
+            //foreach (var glumac in predstava.glumci)
+            //{
+            //    _context.Entry(glumac).State = EntityState.Unchanged;
+            //}
 
             _context.Entry(predstava.izabran).State = EntityState.Unchanged;
 

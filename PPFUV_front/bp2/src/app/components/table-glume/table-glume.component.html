@@ -1,0 +1,46 @@
+<div class="container alert alert-warning" role="alert">
+    Prvo odaberite nagradu i onda kliknite ADD
+</div>
+
+<div class="container">
+    <h3>Glumci koji glume</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">Ime</th>
+                    <th scope="col">Prezime</th>
+                    <th scope="col">Add nagrada</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let glumac of allGlumac">
+                    <td>{{glumac.ime}}</td>
+                    <td>{{glumac.prezime}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" *ngIf="glumac.nagrada == null"
+                                id={{glumac.id}} (click)="addGlumacBtn($event.target.id)">
+                            ADD
+                        </button>
+                        <span *ngIf="glumac.nagrada != null">{{glumac.nagrada.iznos}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+
+<div class="container">
+    <h3>Dodaj nagradu</h3>
+    <div class="form-group">
+        <label for="nagrada">Nagrada</label>
+        <div class="input-group mb-3 border border-secondary rounded">
+            <select id="nagrada" class="form-control" (change)="chageNagrada($event.target.value)">
+                <option value="{{nagrada.id}}" *ngFor="let nagrada of allNagrada">
+                    $ {{nagrada.iznos}}
+                </option>
+            </select>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorNagrada">
+            {{errorText}}
+        </div>
+    </div>
+</div>

@@ -1,3 +1,11 @@
+<div class="container alert alert-warning" role="alert">
+    Prvo odaberite glumca i onda kliknite ADD
+</div>
+
+<div class="container alert alert-warning" role="alert">
+    Prvo odaberite reditelja i onda kliknite ADD
+</div>
+
 <div class="container">
     <h3>Predstave</h3>
         <table class="table table-hover">
@@ -5,6 +13,8 @@
                 <tr class="table-info">
                     <th scope="col">id</th>
                     <th scope="col">Naziv</th>
+                    <th scope="col">Add glumac</th>
+                    <th scope="col">Add reditelj</th>
                     <th scope="col">Change</th>
                     <th scope="col">Delete</th>
                 </tr>
@@ -16,6 +26,18 @@
                         {{predstava.id}}
                     </th>
                     <td>{{predstava.naziv}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success"
+                                id={{predstava.id}} (click)="addGlumacBtn($event.target.id)">
+                            ADD
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success"
+                                id={{predstava.id}} (click)="addRediteljBtn($event.target.id)">
+                            ADD
+                        </button>
+                    </td>
                     <td>
                         <button type="button" class="btn btn-warning"
                                 id={{predstava.id}} (click)="changePredstava($event)">
@@ -31,4 +53,38 @@
                 </tr>
             </tbody>
         </table>
+</div>
+
+<div class="container">
+    <h3>Dodaj glumca</h3>
+    <div class="form-group">
+        <label for="glumac">Glumac</label>
+        <div class="input-group mb-3 border border-secondary rounded">
+            <select id="glumac" class="form-control" (change)="chageGlumac($event.target.value)">
+                <option value="{{glumac.id}}" *ngFor="let glumac of allGlumac">
+                    {{glumac.ime}} {{glumac.prezime}}
+                </option>
+            </select>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorGlumac">
+            {{errorText}}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h3>Dodaj reditelja</h3>
+    <div class="form-group">
+        <label for="reditelj">Reditelj</label>
+        <div class="input-group mb-3 border border-secondary rounded">
+            <select id="reditelj" class="form-control" (change)="chageReditelj($event.target.value)">
+                <option value="{{reditelj.id}}" *ngFor="let reditelj of allReditelj" >
+                    {{reditelj.ime}} {{reditelj.prezime}}
+                </option>
+            </select>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorReditelj">
+            {{errorText}}
+        </div>
+    </div>
 </div>

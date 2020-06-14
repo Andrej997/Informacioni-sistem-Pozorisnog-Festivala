@@ -17,5 +17,7 @@ namespace PPFUV.Model
         public string prezime { get; set; }
 
         public int brPredstava { get; set; }
+
+        public Nagrada nagrada { get; set; }
     }
 }
