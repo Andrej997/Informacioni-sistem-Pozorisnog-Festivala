@@ -29,5 +29,6 @@ namespace PPFUV.Data
         public DbSet<Izabran> Izabrani { get; set; }
         public DbSet<Realizuje> Realizuju { get; set; }
         public DbSet<Glumi> Glume { get; set; }
+        public DbSet<Priredi> Prirede { get; set; }
     }
 }

@@ -23,6 +23,7 @@ import { TableRadnikComponent } from './components/table-radnik/table-radnik.com
 import { TableIzabranComponent } from './components/table-izabran/table-izabran.component';
 import { TableUcesniciComponent } from './components/table-ucesnici/table-ucesnici.component';
 import { TableGlumeComponent } from './components/table-glume/table-glume.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
@@ -112,6 +113,10 @@ const routes: Routes = [
   {
     path: "tableIzabrani",
     component: TableIzabranComponent
+  },
+  {
+    path: "home",
+    component: HomeComponent
   },
   {
     path: "tableGlume",

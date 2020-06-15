@@ -30,6 +30,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { TableIzabranComponent } from './components/table-izabran/table-izabran.component';
 import { TableUcesniciComponent } from './components/table-ucesnici/table-ucesnici.component';
 import { TableGlumeComponent } from './components/table-glume/table-glume.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { TableGlumeComponent } from './components/table-glume/table-glume.compon
     LoaderComponent,
     TableIzabranComponent,
     TableUcesniciComponent,
-    TableGlumeComponent
+    TableGlumeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
